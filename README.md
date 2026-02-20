@@ -1,2 +1,0 @@
-# IT-Academy
-My academy
