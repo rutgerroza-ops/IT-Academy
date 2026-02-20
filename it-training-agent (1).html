@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Business Academy — Rutger</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a26;
+    --border: #2a2a3d;
+    --accent: #6c63ff;
+    --accent2: #ff6584;
+    --accent3: #43e97b;
+    --text: #e8e8f0;
+    --muted: #7070a0;
+    --card: #16162a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 20% 20%, rgba(108,99,255,0.07) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(255,101,132,0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    gap: 16px;
+  }
+
+  .brand {
+    font-family: 'Syne', sans-serif;
+  }
+
+  .brand-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .brand-name {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1;
+    background: linear-gradient(135deg, #e8e8f0, #6c63ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .streak-badge {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 12px;
+    padding: 12px 20px;
+    text-align: center;
+    min-width: 80px;
+  }
+
+  .streak-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .streak-label {
+    font-size: 11px;
+    font-weight: 500;
+    opacity: 0.85;
+    margin-top: 2px;
+  }
+
+  /* Progress bar */
+  .progress-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 32px;
+  }
+
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .progress-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .progress-count {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .progress-bar-wrap {
+    background: var(--border);
+    border-radius: 999px;
+    height: 8px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 999px;
+    transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .category-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .pill {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+
+  .pill:hover, .pill.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(108,99,255,0.1);
+  }
+
+  /* Lesson card */
+  .lesson-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.4s ease;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .lesson-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+
+  .lesson-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .lesson-cat {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(108,99,255,0.12);
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+
+  .lesson-num {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .lesson-status {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .lesson-status.done {
+    color: var(--accent3);
+  }
+
+  .lesson-status.new {
+    color: var(--accent2);
+  }
+
+  .lesson-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .lesson-body {
+    font-size: 15px;
+    line-height: 1.75;
+    color: #b0b0d0;
+  }
+
+  .lesson-body p { margin-bottom: 12px; }
+
+  .lesson-body strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .key-points {
+    background: var(--surface2);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+  }
+
+  .key-points-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .key-point {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #b0b0d0;
+    line-height: 1.5;
+  }
+
+  .key-point::before {
+    content: '→';
+    color: var(--accent);
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+
+  .hr-link {
+    background: linear-gradient(135deg, rgba(255,101,132,0.1), rgba(108,99,255,0.1));
+    border: 1px solid rgba(255,101,132,0.2);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-top: 20px;
+    font-size: 13px;
+    color: #d0d0f0;
+    line-height: 1.6;
+  }
+
+  .hr-link-title {
+    font-weight: 600;
+    color: var(--accent2);
+    margin-bottom: 4px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* Actions */
+  .lesson-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), #8b83ff);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(108,99,255,0.35);
+  }
+
+  .btn-secondary {
+    background: var(--surface2);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .btn-done {
+    background: linear-gradient(135deg, var(--accent3), #26c96c);
+    color: #0a0a0f;
+  }
+
+  .btn-done:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(67,233,123,0.3);
+  }
+
+  /* Curriculum grid */
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .curriculum-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .curriculum-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .curriculum-item:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .curriculum-item.completed {
+    border-color: rgba(67,233,123,0.3);
+    background: rgba(67,233,123,0.04);
+  }
+
+  .curriculum-item.active {
+    border-color: var(--accent);
+    background: rgba(108,99,255,0.08);
+  }
+
+  .ci-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+
+  .ci-cat {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .ci-check {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(67,233,123,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--accent3);
+  }
+
+  .ci-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  /* Quiz */
+  .quiz-section {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .quiz-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--accent);
+  }
+
+  .quiz-question {
+    font-size: 15px;
+    margin-bottom: 16px;
+    color: var(--text);
+  }
+
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .quiz-opt {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .quiz-opt:hover { border-color: var(--accent); background: rgba(108,99,255,0.08); }
+  .quiz-opt.correct { border-color: var(--accent3); background: rgba(67,233,123,0.1); color: var(--accent3); }
+  .quiz-opt.wrong { border-color: var(--accent2); background: rgba(255,101,132,0.1); color: var(--accent2); }
+
+  .quiz-feedback {
+    margin-top: 12px;
+    font-size: 14px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    display: none;
+  }
+
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct { background: rgba(67,233,123,0.1); color: var(--accent3); border: 1px solid rgba(67,233,123,0.2); }
+  .quiz-feedback.wrong { background: rgba(255,101,132,0.1); color: var(--accent2); border: 1px solid rgba(255,101,132,0.2); }
+
+  /* Nav tabs */
+  .nav-tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 32px;
+  }
+
+  .nav-tab {
+    flex: 1;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    color: var(--muted);
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-tab:hover { color: var(--text); }
+
+  .nav-tab.active {
+    background: var(--accent);
+    color: white;
+  }
+
+  /* Dashboard */
+  .dashboard { animation: fadeUp 0.4s ease; }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .stat-card.c1::after { background: var(--accent); }
+  .stat-card.c2::after { background: var(--accent2); }
+  .stat-card.c3::after { background: var(--accent3); }
+  .stat-card.c4::after { background: #ffbe43; }
+
+  .stat-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* Category breakdown */
+  .cat-breakdown {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+
+  .cat-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .cat-row:last-child { margin-bottom: 0; }
+
+  .cat-name {
+    font-size: 13px;
+    font-weight: 500;
+    width: 110px;
+    flex-shrink: 0;
+    color: var(--text);
+  }
+
+  .cat-bar-wrap {
+    flex: 1;
+    background: var(--border);
+    border-radius: 999px;
+    height: 6px;
+    overflow: hidden;
+  }
+
+  .cat-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .cat-count {
+    font-size: 12px;
+    color: var(--muted);
+    width: 40px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* Activity heatmap */
+  .heatmap-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+
+  .heatmap-grid {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+
+  .heatmap-day {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    background: var(--border);
+    transition: background 0.3s;
+    cursor: default;
+    position: relative;
+  }
+
+  .heatmap-day.active-1 { background: rgba(108,99,255,0.3); }
+  .heatmap-day.active-2 { background: rgba(108,99,255,0.55); }
+  .heatmap-day.active-3 { background: rgba(108,99,255,0.8); }
+  .heatmap-day.active-4 { background: var(--accent); }
+
+  .heatmap-day:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 11px;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* Quiz score ring */
+  .score-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .score-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .score-ring {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+  }
+
+  .score-ring svg { transform: rotate(-90deg); }
+
+  .score-ring-text {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  .score-info-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .score-info-sub {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* Recent lessons list */
+  .recent-list {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .recent-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .recent-item:last-child { border-bottom: none; }
+  .recent-item:hover { background: rgba(108,99,255,0.05); }
+
+  .ri-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(67,233,123,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .ri-title {
+    font-size: 14px;
+    font-weight: 500;
+    flex: 1;
+  }
+
+  .ri-cat {
+    font-size: 11px;
+    color: var(--muted);
+    padding: 3px 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+
+  .ri-quiz {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 6px;
+  }
+
+  .ri-quiz.correct { background: rgba(67,233,123,0.1); color: var(--accent3); }
+  .ri-quiz.wrong { background: rgba(255,101,132,0.1); color: var(--accent2); }
+  .ri-quiz.none { background: var(--border); color: var(--muted); }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--accent);
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 14px 28px;
+    border-radius: 12px;
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    z-index: 100;
+    white-space: nowrap;
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 600px) {
+    .header { flex-direction: column; }
+    .lesson-title { font-size: 18px; }
+    .curriculum-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="brand">
+      <div class="brand-title">IT Business Academy</div>
+      <div class="brand-name">Rutger's<br>IT Opleiding</div>
+    </div>
+    <div class="streak-badge">
+      <div class="streak-num" id="streakNum">0</div>
+      <div class="streak-label">dag streak 🔥</div>
+    </div>
+  </div>
+
+  <div class="progress-section">
+    <div class="progress-header">
+      <div class="progress-title">Voortgang Curriculum</div>
+      <div class="progress-count" id="progressCount">0 / 20 lessen</div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="switchTab('learn', this)">📚 Leren</button>
+    <button class="nav-tab" onclick="switchTab('dashboard', this)">📊 Voortgang</button>
+    <button class="nav-tab" onclick="switchTab('curriculum', this)">🗂 Curriculum</button>
+  </div>
+
+  <!-- Learn tab -->
+  <div id="tabLearn">
+    <div id="lessonContainer"></div>
+  </div>
+
+  <!-- Dashboard tab -->
+  <div id="tabDashboard" style="display:none">
+    <div class="dashboard" id="dashboardContent"></div>
+  </div>
+
+  <!-- Curriculum tab -->
+  <div id="tabCurriculum" style="display:none">
+    <div class="category-pills" style="margin-bottom:20px">
+      <div class="pill active" onclick="filterCategory('all', this)">Alles</div>
+      <div class="pill" onclick="filterCategory('Infrastructuur', this)">Infrastructuur</div>
+      <div class="pill" onclick="filterCategory('Cloud', this)">Cloud</div>
+      <div class="pill" onclick="filterCategory('Security', this)">Security</div>
+      <div class="pill" onclick="filterCategory('Dienstverlening', this)">Dienstverlening</div>
+      <div class="pill" onclick="filterCategory('Business', this)">Business IT</div>
+    </div>
+    <div class="curriculum-grid" id="curriculumGrid"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const CURRICULUM = [
+  {
+    id: 1, cat: 'Dienstverlening', title: 'Wat is een MSP?',
+    body: `Een <strong>Managed Service Provider (MSP)</strong> is een IT-bedrijf dat de volledige IT-omgeving van een klant beheert en onderhoudt — proactief, op basis van een vast contract. In plaats van dat een bedrijf zelf IT-medewerkers in dienst heeft, koopt het IT als een dienst in.\n\nDenk aan het als een externe IT-afdeling. De MSP monitort 24/7 de systemen, lost problemen op (vaak al voordat de klant het merkt), beheert updates en zorgt voor beveiliging.\n\nAcknowledge ICT Group opereert deels als MSP voor haar klanten. Dit verklaart waarom rollen zoals 'Product Owner Multi Cloud' of 'Security Engineer' zo belangrijk zijn — zij leveren de dienstverlening die klanten hebben ingekocht.`,
+    points: ['MSP = externe IT-afdeling op abonnement', 'Proactief beheer: problemen oplossen vóórdat de klant het merkt', 'Typische diensten: helpdesk, netwerk, cloud, security, back-up', 'Prijsmodel: per gebruiker of apparaat per maand'],
+    hrLink: 'Als HR manager bij Acknowledge is het belangrijk te begrijpen welke rollen er in een MSP-team zitten: engineers, architects, service desk medewerkers en product owners. Dit helpt je bij het opstellen van functiebeschrijvingen en het begrijpen van de werkdruk per team.',
+    quiz: {
+      q: 'Wat onderscheidt een MSP van een gewoon IT-bedrijf?',
+      opts: ['Ze bouwen alleen software op maat', 'Ze beheren IT proactief en continu op abonnementsbasis', 'Ze leveren alleen hardware', 'Ze werken alleen voor grote bedrijven'],
+      correct: 1, explanation: 'Juist! Het proactieve, continue beheer op basis van een contract is het kenmerk van een MSP.'
+    }
+  },
+  {
+    id: 2, cat: 'Cloud', title: 'Public, Private & Hybrid Cloud',
+    body: `Er zijn drie hoofdvormen van cloud computing, en ze hebben elk hun eigen toepassing.\n\nEen <strong>public cloud</strong> is infrastructuur die door een grote aanbieder zoals Microsoft Azure, Amazon AWS of Google Cloud wordt beheerd en gedeeld door meerdere klanten. Je betaalt alleen voor wat je gebruikt.\n\nEen <strong>private cloud</strong> is een cloudomgeving die exclusief voor één organisatie is. Dit geeft meer controle en is beter voor gevoelige data, maar is duurder.\n\nEen <strong>hybrid cloud</strong> combineert het beste van beide. Gevoelige data (zoals patiëntdossiers) staat in de private cloud, terwijl minder kritische systemen in de public cloud draaien. Dit is de meest gangbare keuze voor zorgorganisaties en grotere bedrijven.`,
+    points: ['Public cloud: gedeeld, goedkoop, schaalbaar (Azure, AWS, GCP)', 'Private cloud: exclusief, duurder, meer controle', 'Hybrid cloud: combinatie — meest gebruikt in de praktijk', 'Multi-cloud: gebruik van meerdere public cloud providers tegelijk'],
+    hrLink: 'Cloud engineers en architects zijn schaarse profielen op de arbeidsmarkt. Als HR manager bij Acknowledge moet je begrijpen wat het verschil is tussen een Azure-specialist en een AWS-specialist, zodat je de juiste vacaturetekst schrijft en kandidaten goed kunt beoordelen.',
+    quiz: {
+      q: 'Waarom kiezen zorgorganisaties vaak voor een hybrid cloud?',
+      opts: ['Omdat het altijd goedkoper is', 'Om gevoelige patiëntdata privé te houden en minder kritische zaken in public cloud te draaien', 'Omdat public cloud niet veilig is', 'Omdat private cloud verplicht is in Nederland'],
+      correct: 1, explanation: 'Correct! Hybrid cloud geeft de flexibiliteit om gevoelige data beschermd te houden terwijl andere workloads van de schaalvoordelen van public cloud profiteren.'
+    }
+  },
+  {
+    id: 3, cat: 'Infrastructuur', title: 'Netwerken: de basis',
+    body: `Een netwerk is de verbinding tussen computers en andere apparaten zodat ze data kunnen uitwisselen. Elk IT-bedrijf beheert netwerken — het is de ruggengraat van alles.\n\nEen paar essentiële begrippen: Een <strong>router</strong> verbindt netwerken met elkaar (bijvoorbeeld jouw thuisnetwerk met het internet). Een <strong>switch</strong> verbindt apparaten binnen hetzelfde netwerk. Een <strong>firewall</strong> bewaakt het verkeer en blokkeert ongewenste verbindingen.\n\n<strong>LAN vs WAN</strong>: Een LAN (Local Area Network) is een lokaal netwerk, zoals op een kantoor. Een WAN (Wide Area Network) verbindt meerdere locaties over grotere afstanden — het internet is het grootste WAN.\n\nBij Acknowledge beheren netwerkengineers deze infrastructuur voor klanten, en zorgen ze dat alles snel, stabiel en veilig is.`,
+    points: ['Router: verbindt netwerken', 'Switch: verbindt apparaten binnen een netwerk', 'Firewall: beveiligingspoort voor netwerkverkeer', 'LAN = lokaal netwerk, WAN = verbinding over grote afstand'],
+    hrLink: 'Netwerkengineers zijn een aparte specialisatie van cloud-engineers. Ze hebben vaak Cisco of Juniper certificeringen. Als HR wil je weten welke certificeringen relevant zijn (CCNA, CCNP) zodat je bij werving de juiste kandidaten herkent.',
+    quiz: {
+      q: 'Wat is de primaire functie van een firewall?',
+      opts: ['Netwerken met elkaar verbinden', 'Data opslaan', 'Ongewenst netwerkverkeer blokkeren', 'Wifi-signalen versterken'],
+      correct: 2, explanation: 'Juist! Een firewall is een beveiligingsapparaat dat bepaalt welk netwerkverkeer wel of niet doorgelaten wordt.'
+    }
+  },
+  {
+    id: 4, cat: 'Security', title: 'Cybersecurity: de dreigingen',
+    body: `Cybersecurity is een van de snelst groeiende onderdelen van IT. Bijna elke organisatie heeft tegenwoordig een security-team of koopt security als dienst in.\n\nDe meest voorkomende dreigingen zijn: <strong>Phishing</strong> — nep-e-mails die mensen verleiden inloggegevens in te voeren. <strong>Ransomware</strong> — malware die bestanden versleutelt en losgeld eist. <strong>DDoS-aanvallen</strong> — een website of dienst platleggen door hem te overspoelen met verkeer. <strong>Social engineering</strong> — mensen manipuleren om toegang te geven.\n\nVoor een IT-bedrijf zoals Acknowledge is security cruciaal, zowel voor de eigen systemen als voor klanten. Rollen zoals Security Engineer, SOC-analyst en CISO zijn dan ook in trek.`,
+    points: ['Phishing: nep-mails om inloggegevens te stelen', 'Ransomware: versleuteling + losgeld', 'DDoS: overstroming van een dienst', 'Social engineering: menselijke manipulatie'],
+    hrLink: 'Security-professionals zijn extreem schaars. Posities zoals SOC-analyst, penetration tester en CISO zijn moeilijk te vervullen. Als HR manager moet je begrijpen dat security-kandidaten een ander wervingsproces vragen dan reguliere IT-ers — ze worden actief benaderd en reageren zelden op vacatures.',
+    quiz: {
+      q: 'Wat is ransomware?',
+      opts: ['Software die advertenties toont', 'Malware die bestanden versleutelt en losgeld vraagt', 'Een type phishing-aanval', 'Een manier om wachtwoorden te raden'],
+      correct: 1, explanation: 'Correct! Ransomware versleutelt de bestanden van het slachtoffer, waarna de aanvaller losgeld vraagt voor de ontsleutelsleutel.'
+    }
+  },
+  {
+    id: 5, cat: 'Business', title: 'SLA: Service Level Agreement',
+    body: `Een <strong>SLA (Service Level Agreement)</strong> is een contract tussen een dienstverlener en een klant waarin precies wordt vastgelegd wat de klant mag verwachten.\n\nTypische SLA-onderdelen zijn: <strong>Uptime garantie</strong> — hoeveel procent van de tijd is een systeem beschikbaar? 99,9% klinkt goed, maar betekent nog altijd ~8,7 uur downtime per jaar. <strong>Responstijd</strong> — hoe snel reageert de helpdesk op een melding? <strong>Oplostijd</strong> — hoe snel is een probleem opgelost?\n\nPrioriteitsniveaus worden vaak aangeduid als P1 (kritisch, systeem ligt plat) tot P4 (lage prioriteit, kleine wens). Voor P1 geldt doorgaans een responstijd van 15-30 minuten.\n\nSLA's bepalen direct de bezetting en werkdruk van support- en beheerteams bij Acknowledge.`,
+    points: ['SLA = contractuele afspraken over dienstverlening', 'Uptime: beschikbaarheidsgarantie (99,9% = nog 8,7u downtime/jaar)', 'P1-P4: prioriteitsniveaus voor incidenten', 'SLA-schendingen kunnen leiden tot boetes of credits'],
+    hrLink: 'SLA\'s hebben directe HR-implicaties. Strenge SLA\'s vereisen meer personeel, ploegendiensten en on-call roosters. Als HR manager bepaal je mede of er voldoende capaciteit is om SLA-verplichtingen na te komen. Dit is een belangrijk gesprekspunt met team managers.',
+    quiz: {
+      q: 'Wat betekent een uptime van 99,9%?',
+      opts: ['Het systeem is altijd beschikbaar', 'Maximaal ~8,7 uur downtime per jaar is toegestaan', 'Het systeem mag 1 dag per jaar offline zijn', 'De uptime wordt maandelijks gemeten'],
+      correct: 1, explanation: 'Goed! 99,9% uptime klinkt perfect maar staat nog altijd ~8,7 uur downtime per jaar toe. Vandaar dat kritische systemen vaak 99,99% of 99,999% vereisen.'
+    }
+  },
+  {
+    id: 6, cat: 'Cloud', title: 'Microsoft Azure: de basis',
+    body: `<strong>Microsoft Azure</strong> is het cloudplatform van Microsoft en de meest gebruikte cloud in Europa, mede omdat veel bedrijven al Microsoft-producten gebruiken (Office 365, Teams, Windows).\n\nAzure biedt honderden diensten, maar de meest relevante zijn: <strong>Virtual Machines</strong> — servers in de cloud. <strong>Azure Active Directory</strong> — identiteits- en toegangsbeheer (wie mag inloggen op wat). <strong>Azure Storage</strong> — opslag van data. <strong>Azure Kubernetes Service</strong> — het draaien van containerized applicaties.\n\nVoor Acknowledge is Azure een kernplatform. Veel klanten worden op Azure beheerd, en Azure-certificeringen (AZ-900, AZ-104, AZ-305) zijn gangbare kwalificaties voor engineers.`,
+    points: ['Azure is Microsofts cloudplatform — marktleider in Europa', 'Azure AD beheert identiteiten en toegangsrechten', 'Virtual Machines = servers in de cloud', 'AZ-900 = fundamentele Azure certificering voor beginners'],
+    hrLink: 'Azure-certificeringen zijn een goede indicator van competentieniveau bij werving. AZ-900 is basis, AZ-104 is functioneel beheer, AZ-305 is architect-niveau. Als HR manager helpt dit je om de seniority van een kandidaat beter in te schatten naast hun cv.',
+    quiz: {
+      q: 'Wat doet Azure Active Directory?',
+      opts: ['Websites hosten', 'Identiteiten en toegangsrechten beheren', 'Data back-ups maken', 'Netwerken monitoren'],
+      correct: 1, explanation: 'Juist! Azure AD is het identity platform van Microsoft — het regelt wie toegang heeft tot welke systemen en applicaties.'
+    }
+  },
+  {
+    id: 7, cat: 'Infrastructuur', title: 'Servers & Virtualisatie',
+    body: `Een <strong>server</strong> is een krachtige computer die diensten levert aan andere computers (clients). Webservers leveren websites, mailservers verwerken e-mail, fileservers slaan bestanden op.\n\n<strong>Virtualisatie</strong> is de technologie waarmee je meerdere virtuele servers kunt draaien op één fysieke server. Dit is efficiënter en goedkoper. Het bekendste platform hiervoor is VMware.\n\nIn de cloud is virtualisatie de basis: als jij een Virtual Machine aanmaakt in Azure, draait die in werkelijkheid als een virtuele machine op een gigantische fysieke server in een datacenter van Microsoft.\n\n<strong>Containers</strong> zijn een stap verder: nog lichter dan VMs, en beheerd via platforms zoals Docker en Kubernetes.`,
+    points: ['Server = krachtige computer die diensten levert', 'Virtualisatie = meerdere VMs op één fysieke server (VMware)', 'Containers zijn lichter dan VMs: Docker & Kubernetes', 'Datacenter = gebouw vol fysieke servers'],
+    hrLink: 'VMware-specialisten en Kubernetes-engineers zijn goed betaalde profielen. De transitie van on-premise servers naar cloud betekent dat sommige traditionele rollen (zoals datacenter beheerder) krimpen, terwijl cloud-rollen groeien. Dit heeft impact op workforce planning.',
+    quiz: {
+      q: 'Wat is het voordeel van virtualisatie?',
+      opts: ['Meer fysieke servers nodig', 'Meerdere servers op één fysieke machine draaien — efficiënter en goedkoper', 'Snellere internetverbinding', 'Minder beveiliging nodig'],
+      correct: 1, explanation: 'Correct! Virtualisatie maakt het mogelijk om de capaciteit van fysieke hardware optimaal te benutten door meerdere virtuele machines te draaien.'
+    }
+  },
+  {
+    id: 8, cat: 'Dienstverlening', title: 'ITIL: IT Service Management',
+    body: `<strong>ITIL (Information Technology Infrastructure Library)</strong> is het meest gebruikte framework voor IT-dienstverlening wereldwijd. Het beschrijft best practices voor hoe IT-diensten georganiseerd, geleverd en verbeterd moeten worden.\n\nBelangrijke ITIL-concepten zijn: <strong>Incident Management</strong> — het snel oplossen van verstoringen. <strong>Change Management</strong> — gecontroleerd doorvoeren van wijzigingen zodat ze geen nieuwe problemen veroorzaken. <strong>Problem Management</strong> — het onderzoeken van de grondoorzaak van herhalende problemen. <strong>Service Desk</strong> — het eerste aanspreekpunt voor gebruikers.\n\nBij Acknowledge werken service managers en ITIL-gecertificeerde engineers die deze processen dagelijks toepassen.`,
+    points: ['ITIL = framework voor IT service management', 'Incident: verstoring die snel opgelost moet worden', 'Change: gecontroleerde wijziging aan een systeem', 'Problem: structureel onderzoek naar herhalende incidenten'],
+    hrLink: 'ITIL-certificeringen (Foundation, Practitioner) zijn een vereiste voor service management rollen. Als HR manager is het handig te weten dat ITIL Foundation een basisopleiding is van 2-3 dagen, terwijl hogere niveaus meer ervaring en studie vereisen.',
+    quiz: {
+      q: 'Wat is het verschil tussen een incident en een problem in ITIL?',
+      opts: ['Geen verschil, het zijn synoniemen', 'Een incident is een acute verstoring; een problem is het onderzoek naar de grondoorzaak', 'Een problem is erger dan een incident', 'Incidents worden door klanten gemeld, problems door engineers'],
+      correct: 1, explanation: 'Juist! Een incident is iets wat direct opgelost moet worden. Een problem is de structurele analyse: waarom blijft dit terugkomen?'
+    }
+  },
+  {
+    id: 9, cat: 'Security', title: 'NEN 7510 & ISO 27001',
+    body: `<strong>ISO 27001</strong> is de internationale norm voor informatiebeveiliging. Het beschrijft hoe organisaties een Information Security Management System (ISMS) moeten opzetten en onderhouden.\n\n<strong>NEN 7510</strong> is de Nederlandse variant, specifiek voor de zorgsector. Het bouwt voort op ISO 27001 maar voegt zorg-specifieke eisen toe rondom patiëntdata.\n\nCertificering verloopt via externe auditors en is 3 jaar geldig, met jaarlijkse tussentijdse controles. Het traject duurt gemiddeld 6-12 maanden en kost €15.000 tot €50.000+ afhankelijk van de organisatiegrootte.\n\nVoor IT-bedrijven die de zorg bedienen — zoals Acknowledge — is NEN 7510 certificering van groot commercieel belang.`,
+    points: ['ISO 27001 = internationale informatiebeveiligingsnorm', 'NEN 7510 = ISO 27001 aangevuld voor de zorgsector', 'ISMS = Information Security Management System', 'Certificaat geldig 3 jaar, jaarlijkse tussenaudit'],
+    hrLink: 'Een CISO (Chief Information Security Officer) of Information Security Manager is verantwoordelijk voor het behalen en behouden van certificeringen. Dit is een strategische, senior rol. Bij werving moet je begrijpen dat een echte CISO niet alleen technisch maar ook managementervaring nodig heeft.',
+    quiz: {
+      q: 'Waarom is NEN 7510 relevant voor Acknowledge?',
+      opts: ['Het is verplicht voor alle IT-bedrijven', 'Zorgklanten eisen het als voorwaarde voor samenwerking', 'Het vervangt de AVG', 'Het is alleen voor ziekenhuizen'],
+      correct: 1, explanation: 'Precies! Zorgorganisaties stellen NEN 7510 certificering vaak als eis aan hun leveranciers. Voor Acknowledge is het dus een commercieel vereiste om in de zorgsector te kunnen opereren.'
+    }
+  },
+  {
+    id: 10, cat: 'Business', title: 'Agile & Scrum in IT',
+    body: `<strong>Agile</strong> is een manier van werken waarbij teams in korte cycli (sprints van 1-4 weken) werken en continu feedback verwerken. In plaats van maanden lang plannen en dan één grote release doen, werk je iteratief.\n\n<strong>Scrum</strong> is het meest gebruikte Agile framework. De kernrollen zijn: <strong>Product Owner</strong> — bepaalt wat er gebouwd wordt en prioriteert de backlog. <strong>Scrum Master</strong> — begeleidt het team en verwijdert obstakels. <strong>Development Team</strong> — bouwt en levert.\n\nBij Acknowledge werken veel teams Agile. Functies zoals Product Owner Multi Cloud zijn Scrum-rollen. Het Scrum-ritme bestaat uit: Sprint Planning, Daily Stand-up, Sprint Review en Retrospective.`,
+    points: ['Agile = iteratief werken in korte cycli', 'Sprint = tijdvak van 1-4 weken', 'Product Owner = prioriteert wat gebouwd wordt', 'Scrum Master = procesbegeleider en obstakelverwijderaar'],
+    hrLink: 'Scrum Master en Product Owner zijn aparte rollen met eigen certificeringen (PSM, PSPO). Als HR moet je weten dat een goede Product Owner niet per se technisch is — communicatie en prioritering zijn de kerncompetenties. Scrum Masters komen soms uit een coaching- of projectmanagement achtergrond.',
+    quiz: {
+      q: 'Wat is de primaire verantwoordelijkheid van een Product Owner?',
+      opts: ['Het team coachen', 'Bepalen wat er gebouwd wordt en de backlog prioriteren', 'Code schrijven', 'De sprint plannen'],
+      correct: 1, explanation: 'Correct! De Product Owner is de stem van de business/klant en bepaalt de prioriteiten van het ontwikkelteam.'
+    }
+  },
+  { id: 11, cat: 'Cloud', title: 'FinOps: Cloud Kosten Beheren', body: 'Cloud computing is flexibel maar kan snel duur worden als het niet goed beheerd wordt. <strong>FinOps</strong> (Financial Operations) is de praktijk van het optimaliseren van cloudkosten.\n\nTypische valkuilen zijn ongebruikte resources die blijven draaien, oversizing (te grote machines kiezen) en gebrek aan tagging (weten welke kosten bij welk project horen).\n\nEen Product Owner Multi Cloud is mede verantwoordelijk voor FinOps: hij of zij houdt de cloudkosten in de gaten en stuurt bij.', points: ['FinOps = cloud kosten optimaliseren', 'Ongebruikte resources zijn de grootste kostenpost', 'Tagging: kosten koppelen aan projecten of klanten', 'Reserved Instances: vooraf betalen voor korting'], hrLink: 'FinOps-specialisten zijn een groeiend profiel. Ze combineren finance en IT kennis. Als HR is het handig te weten dat dit profiel vaak afkomstig is uit consultancy of finance, niet puur uit IT.', quiz: { q: 'Wat is het doel van FinOps?', opts: ['Meer cloud resources inzetten', 'Cloudkosten optimaliseren en beheersen', 'Security verbeteren', 'Snellere deployments'], correct: 1, explanation: 'Juist! FinOps gaat over het beheren en optimaliseren van cloudkosten zodat de cloud efficiënt en kostenverantwoord wordt ingezet.' } },
+  { id: 12, cat: 'Infrastructuur', title: 'Backup & Disaster Recovery', body: 'Een <strong>backup</strong> is een kopie van data die gebruikt kan worden als de originele data verloren gaat. <strong>Disaster Recovery (DR)</strong> gaat verder: het is het complete plan om systemen te herstellen na een grote verstoring.\n\nBelangrijke begrippen zijn RTO (Recovery Time Objective): hoe snel moet een systeem weer werken? En RPO (Recovery Point Objective): hoeveel dataverlies is acceptabel?\n\nBij een MSP is DR een standaard dienstverlening, maar de kosten en complexiteit hangen sterk af van de RTO/RPO-eisen van de klant.', points: ['Backup = kopie van data als vangnet', 'RTO = hoe snel moet herstel plaatsvinden?', 'RPO = hoeveel dataverlies is acceptabel?', '3-2-1 regel: 3 kopieën, 2 media, 1 offsite'], hrLink: 'Backup- en DR-procedures zijn vaak onderdeel van een BHV/BCP (Business Continuity Plan). Als HR manager ben je betrokken bij het HR-aspect van continuïteitsplanning: wie neemt welke rol bij een crisis? Dit raakt direct aan HR-beleid.', quiz: { q: 'Wat betekent RTO in disaster recovery?', opts: ['Hoe groot de backup is', 'Hoe snel systemen hersteld moeten zijn na een verstoring', 'Hoeveel data verloren mag gaan', 'De kosten van recovery'], correct: 1, explanation: 'Correct! RTO (Recovery Time Objective) definieert de maximale tijd die een organisatie accepteert dat systemen offline zijn na een incident.' } },
+  { id: 13, cat: 'Security', title: 'Identity & Access Management', body: '<strong>Identity and Access Management (IAM)</strong> gaat over wie toegang heeft tot welke systemen en data. Het is een van de meest kritische onderdelen van security.\n\nPrincipes zijn: <strong>Least Privilege</strong> — geef mensen alleen toegang tot wat ze echt nodig hebben. <strong>Multi-Factor Authenticatie (MFA)</strong> — inloggen vereist twee of meer verificatiemethoden. <strong>Single Sign-On (SSO)</strong> — één inlog voor alle applicaties.\n\nBij een hybride cloudomgeving wordt Azure Active Directory (nu Microsoft Entra ID) veel gebruikt voor IAM.', points: ['IAM = wie heeft toegang tot wat', 'Least Privilege: minimale toegangsrechten per gebruiker', 'MFA: twee of meer verificatiemethoden', 'SSO: één inlog voor alle applicaties'], hrLink: 'IAM heeft directe HR-raakvlakken: bij in- en uitdienst treding moeten toegangsrechten aangemaakt of verwijderd worden. Een efficiënt IAM-proces vereist nauwe samenwerking tussen HR en IT. Als HR manager ben je een sleutelfiguur in de lifecycle van gebruikersaccounts.', quiz: { q: 'Wat betekent het principe van "Least Privilege"?', opts: ['Zo min mogelijk wachtwoorden gebruiken', 'Medewerkers krijgen alleen toegang tot wat ze echt nodig hebben', 'Beheerders hebben geen extra rechten', 'Alle data is openbaar'], correct: 1, explanation: 'Juist! Least Privilege minimaliseert het risico: als een account gehackt wordt, heeft de aanvaller beperkte toegang.' } },
+  { id: 14, cat: 'Business', title: 'DevOps: Ontwikkeling & Beheer Samen', body: '<strong>DevOps</strong> is een cultuur en aanpak waarbij softwareontwikkeling (Dev) en IT-beheer (Ops) samenwerken in plaats van als aparte silo\'s te werken.\n\nDe kern is het versnellen van de software-levering door automatisering: <strong>CI/CD (Continuous Integration / Continuous Deployment)</strong>. Code wordt automatisch getest en uitgerold.\n\nDevOps-engineers zijn een hybride profiel: ze begrijpen zowel development als infrastructuur, en werken met tools zoals Git, Jenkins, Terraform en Kubernetes.', points: ['DevOps = samenwerking Development + Operations', 'CI/CD: automatisch testen en uitrollen van code', 'Infrastructure as Code: infrastructuur beheren via code', 'DevOps vereist een cultuuromslag, niet alleen tools'], hrLink: 'DevOps-engineers zijn moeilijk te vinden en goed betaald. Ze combineren skills uit meerdere disciplines. Als HR moet je begrijpen dat een "DevOps Engineer" vacature breed geïnterpreteerd wordt — sommigen focussen op CI/CD, anderen op cloud infrastructure. Wees specifiek in vacatureteksten.', quiz: { q: 'Wat is CI/CD in DevOps?', opts: ['Customer Integration / Customer Delivery', 'Continuous Integration / Continuous Deployment — automatisch testen en uitrollen van software', 'Een beveiligingsframework', 'Een cloudplatform'], correct: 1, explanation: 'Correct! CI/CD automatiseert het testen en uitrollen van software, waardoor teams sneller en betrouwbaarder kunnen leveren.' } },
+  { id: 15, cat: 'Dienstverlening', title: 'Service Desk Niveaus', body: 'Een IT-service desk is georganiseerd in niveaus (lijnen) om efficiënt te werken.\n\n<strong>1e lijn</strong>: Eerste contact met de gebruiker. Behandelt eenvoudige vragen en veelvoorkomende problemen (wachtwoord reset, basisinstallaties). Hoog volume, snel oplossen.\n\n<strong>2e lijn</strong>: Technische problemen die de 1e lijn niet kon oplossen. Specialistischer, minder volume.\n\n<strong>3e lijn</strong>: Diepgaande technische experts, leveranciers of architects. Complexe problemen, laag volume.\n\nBij Acknowledge werken service desk medewerkers op alle drie de lijnen, afhankelijk van hun specialisatie.', points: ['1e lijn: breed, snel, hoog volume', '2e lijn: specialistischer, meer diepgang', '3e lijn: experts en architecten, complexe problemen', 'Escalatie: doorsturen naar een hogere lijn'], hrLink: 'Service desk medewerkers op de 1e lijn hebben een hoog verloop. Als HR manager is het belangrijk een goede onboardingsstroom te hebben en te begrijpen wat de doorgroeimogelijkheden zijn naar de 2e of 3e lijn. Dit helpt bij retentie.', quiz: { q: 'Welke lijn behandelt een wachtwoord reset?', opts: ['3e lijn', '2e lijn', '1e lijn', 'Geen van alle'], correct: 2, explanation: 'Juist! Eenvoudige, veelvoorkomende verzoeken zoals wachtwoord resets worden door de 1e lijn afgehandeld.' } },
+  { id: 16, cat: 'Cloud', title: 'Containers & Kubernetes', body: '<strong>Containers</strong> zijn een manier om software te verpakken met alles wat het nodig heeft om te draaien, zodat het overal hetzelfde werkt. Docker is het bekendste container-platform.\n\n<strong>Kubernetes (K8s)</strong> is een platform dat containers op schaal beheert en automatisch kan op- en afschalen op basis van vraag. Het is de industriestandaard voor het draaien van moderne applicaties.\n\nVoor MSPs als Acknowledge is Kubernetes kennis essentieel omdat steeds meer klanten hun applicaties in containers draaien.', points: ['Container = applicatie + alle dependencies verpakt', 'Docker = het meest gebruikte container-platform', 'Kubernetes = orchestratie van containers op schaal', 'K8s kan automatisch schalen op basis van vraag'], hrLink: 'Kubernetes-engineers zijn een van de meest gezochte en best betaalde profielen in IT. Certificeringen zijn CKA (Certified Kubernetes Administrator) en CKAD. Als HR is het handig te weten dat kandidaten met Kubernetes-ervaring ook container en cloud kennis hebben — het is zelden een losstaande skill.', quiz: { q: 'Wat doet Kubernetes?', opts: ['E-mails versleutelen', 'Containers op schaal beheren en orchestreren', 'Netwerken monitoren', 'Databases back-uppen'], correct: 1, explanation: 'Correct! Kubernetes automatiseert het uitrollen, schalen en beheren van containerized applicaties.' } },
+  { id: 17, cat: 'Business', title: 'IT Governance & Compliance', body: '<strong>IT Governance</strong> is het raamwerk van beleid, processen en structuren waarmee een organisatie ervoor zorgt dat IT bijdraagt aan de doelstellingen en risico\'s beheert.\n\nBekende frameworks zijn <strong>COBIT</strong> (Control Objectives for IT) en <strong>ITIL</strong>. Compliance gaat over het voldoen aan wet- en regelgeving: AVG (privacy), NIS2 (netwerk- en informatiebeveiliging), en sector-specifieke normen zoals NEN 7510.\n\nNIS2 is een Europese richtlijn die in 2024/2025 van kracht is geworden en strengere eisen stelt aan cybersecurity voor veel organisaties.', points: ['IT Governance = IT in lijn brengen met bedrijfsdoelen', 'COBIT = governance framework', 'AVG = privacywetgeving (GDPR)', 'NIS2 = Europese cybersecurityrichtlijn (2024+)'], hrLink: 'NIS2 heeft HR-implicaties: bewustwording en training van medewerkers is een verplichting. Als HR manager ben je betrokken bij het opzetten van security awareness trainingen. Dit is een groeiend onderdeel van het HR-takenpakket in IT-bedrijven.', quiz: { q: 'Wat is de AVG?', opts: ['Een cloudplatform', 'Europese privacywetgeving voor de verwerking van persoonsgegevens', 'Een IT security framework', 'Een netwerknorm'], correct: 1, explanation: 'Juist! De AVG (Algemene Verordening Gegevensbescherming, of GDPR in het Engels) beschermt de persoonsgegevens van EU-burgers.' } },
+  { id: 18, cat: 'Infrastructuur', title: 'Monitoring & Observability', body: '<strong>Monitoring</strong> is het continu in de gaten houden van de gezondheid van systemen: zijn ze online? Hoe is de performance? <strong>Observability</strong> gaat verder: het vermogen om te begrijpen wat er in een systeem gebeurt op basis van de output (logs, metrics, traces).\n\nBekende tools zijn Grafana, Prometheus, Datadog en Azure Monitor. Bij een MSP is monitoring de basis van proactief beheer: problemen worden gesignaleerd en opgelost vóórdat de klant er hinder van heeft.', points: ['Monitoring = systemen in de gaten houden', 'Alerting = automatisch waarschuwen bij problemen', 'Logs, metrics en traces = de drie pijlers van observability', 'Datadog, Grafana, Prometheus = populaire monitoring tools'], hrLink: 'Monitoring engineers en SREs (Site Reliability Engineers) zijn specialisten die systemen stabiel houden. SRE is een relatief nieuw profiel, afkomstig van Google, dat engineering toepast op operations. Als HR is het handig te weten dat SRE een senior profiel is met een combinatie van development en operations skills.', quiz: { q: 'Wat is het verschil tussen monitoring en observability?', opts: ['Ze zijn hetzelfde', 'Monitoring kijkt of iets werkt; observability begrijpt waarom het (niet) werkt', 'Observability is goedkoper', 'Monitoring is alleen voor netwerken'], correct: 1, explanation: 'Correct! Monitoring vertelt je dát er een probleem is; observability helpt je begrijpen wat de oorzaak is.' } },
+  { id: 19, cat: 'Business', title: 'IT Architectuur Rollen', body: 'In IT zijn er verschillende architectuurrollen, elk met een andere focus.\n\n<strong>Enterprise Architect</strong>: Kijkt naar de gehele IT-architectuur van een organisatie en hoe die aansluit op de bedrijfsstrategie.\n\n<strong>Solution Architect</strong>: Ontwerpt de technische oplossing voor een specifiek project of systeem.\n\n<strong>Cloud Architect</strong>: Specialiseert in cloud-infrastructuur en -design.\n\n<strong>Security Architect</strong>: Zorgt dat beveiliging is ingebouwd in de architectuur. Architecten zijn senior rollen die brug slaan tussen business en techniek.', points: ['Enterprise Architect: strategisch, gehele organisatie', 'Solution Architect: tactisch, specifieke projecten', 'Cloud Architect: cloud-gespecialiseerd', 'Architecten = brug tussen business en techniek'], hrLink: 'Architecten zijn senior profielen met doorgaans 10+ jaar ervaring. Ze zijn schaars en moeilijk te werven. Bij Acknowledge zijn architecten key persons — hun vertrek kan grote impact hebben. Als HR manager is successieplanning en retentie van architecten een strategisch aandachtspunt.', quiz: { q: 'Wat is de voornaamste taak van een Solution Architect?', opts: ['Code schrijven', 'De algehele IT-strategie bepalen', 'De technische oplossing ontwerpen voor een specifiek project', 'Security audits uitvoeren'], correct: 2, explanation: 'Juist! Een Solution Architect vertaalt de business-eisen naar een technisch ontwerp voor een specifiek project of systeem.' } },
+  { id: 20, cat: 'Dienstverlening', title: 'Cloud Cost Models & Licenties', body: 'IT-kosten zijn voor klanten vaak complex. Er zijn drie hoofdmodellen:\n\n<strong>CAPEX (Capital Expenditure)</strong>: Eenmalige investering in hardware of software die je bezit. Traditioneel on-premise model.\n\n<strong>OPEX (Operational Expenditure)</strong>: Doorlopende kosten, zoals cloud abonnementen en MSP-contracten. Voorspelbaar, geen grote eenmalige investering.\n\n<strong>Licentiemodellen</strong>: Per gebruiker, per apparaat, per processor, of consumption-based (betalen naar gebruik). Microsoft 365 is een klassiek per-gebruiker model.', points: ['CAPEX = eenmalige investering, eigen bezit', 'OPEX = maandelijkse kosten, dienst afnemen', 'Cloud = OPEX model, MSP ook', 'Per gebruiker vs consumption-based licenties'], hrLink: 'De verschuiving van CAPEX naar OPEX heeft HR-implicaties: minder technische eigen medewerkers nodig (want uitbesteed), maar meer regie-rollen (die de leveranciers aansturen). Als HR bij Acknowledge zie je dit ook: jullie groeien als MSP juist doordat klanten van CAPEX naar OPEX gaan.', quiz: { q: 'Wat is een OPEX-model in IT?', opts: ['Eenmalige aankoop van hardware', 'Doorlopende abonnementskosten voor diensten', 'Gratis open source software', 'Een type cyberaanval'], correct: 1, explanation: 'Correct! OPEX zijn operationele uitgaven — doorlopende kosten zoals cloud- en MSP-abonnementen. De meeste moderne IT-diensten werken op OPEX-basis.' } }
+];
+
+// State
+let state = {
+  completed: [],
+  streak: 0,
+  lastDate: null,
+  currentLesson: 0,
+  quizAnswered: {},
+  filter: 'all'
+};
+
+// Storage helpers
+async function loadState() {
+  try {
+    const r = localStorage.getItem('it-academy-state');
+    if (r) state = { ...state, ...JSON.parse(r) };
+  } catch(e) {}
+}
+
+async function saveState() {
+  try {
+    localStorage.setItem('it-academy-state', JSON.stringify(state));
+  } catch(e) {}
+}
+
+function getNextLesson() {
+  const filtered = state.filter === 'all' 
+    ? CURRICULUM 
+    : CURRICULUM.filter(l => l.cat === state.filter);
+  const uncompleted = filtered.filter(l => !state.completed.includes(l.id));
+  if (uncompleted.length > 0) return uncompleted[0];
+  return filtered[0]; // all done, show first
+}
+
+function updateProgress() {
+  const count = state.completed.length;
+  const total = CURRICULUM.length;
+  document.getElementById('progressCount').textContent = `${count} / ${total} lessen`;
+  document.getElementById('progressBar').style.width = `${(count/total)*100}%`;
+  document.getElementById('streakNum').textContent = state.streak;
+}
+
+function renderCurriculum() {
+  const grid = document.getElementById('curriculumGrid');
+  const filtered = state.filter === 'all' ? CURRICULUM : CURRICULUM.filter(l => l.cat === state.filter);
+  grid.innerHTML = filtered.map(l => `
+    <div class="curriculum-item ${state.completed.includes(l.id) ? 'completed' : ''} ${state.currentLesson === l.id ? 'active' : ''}" onclick="openLesson(${l.id})">
+      <div class="ci-header">
+        <div class="ci-cat">${l.cat}</div>
+        ${state.completed.includes(l.id) ? '<div class="ci-check">✓</div>' : ''}
+      </div>
+      <div class="ci-title">${l.title}</div>
+    </div>
+  `).join('');
+}
+
+function renderLesson(lesson) {
+  state.currentLesson = lesson.id;
+  const isDone = state.completed.includes(lesson.id);
+  const quizDone = state.quizAnswered[lesson.id] !== undefined;
+  
+  const container = document.getElementById('lessonContainer');
+  container.innerHTML = `
+    <div class="lesson-card">
+      <div class="lesson-meta">
+        <div class="lesson-cat">${lesson.cat}</div>
+        <div class="lesson-num">Les ${lesson.id} van ${CURRICULUM.length}</div>
+        <div class="lesson-status ${isDone ? 'done' : 'new'}">${isDone ? '✓ Voltooid' : '● Nieuw'}</div>
+      </div>
+      <div class="lesson-title">${lesson.title}</div>
+      <div class="lesson-body">
+        ${lesson.body.split('\n\n').map(p => `<p>${p}</p>`).join('')}
+      </div>
+      <div class="key-points">
+        <div class="key-points-title">Kernpunten</div>
+        ${lesson.points.map(p => `<div class="key-point">${p}</div>`).join('')}
+      </div>
+      <div class="hr-link">
+        <div class="hr-link-title">🎯 HR Manager Perspectief</div>
+        ${lesson.hrLink}
+      </div>
+      <div class="quiz-section">
+        <div class="quiz-title">Kennischeck</div>
+        <div class="quiz-question">${lesson.quiz.q}</div>
+        <div class="quiz-options">
+          ${lesson.quiz.opts.map((opt, i) => `
+            <button class="quiz-opt ${quizDone ? (i === lesson.quiz.correct ? 'correct' : (state.quizAnswered[lesson.id] === i ? 'wrong' : '')) : ''}" 
+              onclick="answerQuiz(${lesson.id}, ${i})" ${quizDone ? 'disabled' : ''}>
+              ${opt}
+            </button>
+          `).join('')}
+        </div>
+        <div class="quiz-feedback ${quizDone ? ('show ' + (state.quizAnswered[lesson.id] === lesson.quiz.correct ? 'correct' : 'wrong')) : ''}" id="quizFeedback">
+          ${quizDone ? (state.quizAnswered[lesson.id] === lesson.quiz.correct ? '✓ ' : '✗ ') + lesson.quiz.explanation : ''}
+        </div>
+      </div>
+      <div class="lesson-actions">
+        ${!isDone ? `<button class="btn btn-done" onclick="markDone(${lesson.id})">✓ Markeer als geleerd</button>` : ''}
+        <button class="btn btn-secondary" onclick="nextLesson()">Volgende les →</button>
+      </div>
+    </div>
+  `;
+  renderCurriculum();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function answerQuiz(lessonId, optIdx) {
+  const lesson = CURRICULUM.find(l => l.id === lessonId);
+  state.quizAnswered[lessonId] = optIdx;
+  saveState();
+  
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach((opt, i) => {
+    opt.disabled = true;
+    if (i === lesson.quiz.correct) opt.classList.add('correct');
+    else if (i === optIdx) opt.classList.add('wrong');
+  });
+  
+  const feedback = document.getElementById('quizFeedback');
+  const correct = optIdx === lesson.quiz.correct;
+  feedback.className = `quiz-feedback show ${correct ? 'correct' : 'wrong'}`;
+  feedback.textContent = (correct ? '✓ ' : '✗ ') + lesson.quiz.explanation;
+  
+  showToast(correct ? '🎉 Goed beantwoord!' : '💡 Bijna! Lees het antwoord nog eens.');
+}
+
+function markDone(lessonId) {
+  if (!state.completed.includes(lessonId)) {
+    state.completed.push(lessonId);
+    
+    // Streak logic
+    const today = new Date().toDateString();
+    if (state.lastDate !== today) {
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      state.streak = state.lastDate === yesterday.toDateString() ? state.streak + 1 : 1;
+      state.lastDate = today;
+    }
+
+    // Activity log for heatmap
+    if (!state.activityLog) state.activityLog = [];
+    state.activityLog.push(today);
+    
+    saveState();
+    updateProgress();
+    showToast('🔥 Les voltooid! Streak: ' + state.streak + ' dag' + (state.streak > 1 ? 'en' : ''));
+    
+    // Re-render lesson to update button
+    const lesson = CURRICULUM.find(l => l.id === lessonId);
+    renderLesson(lesson);
+  }
+}
+
+function nextLesson() {
+  const lesson = getNextLesson();
+  renderLesson(lesson);
+}
+
+function openLesson(id) {
+  const lesson = CURRICULUM.find(l => l.id === id);
+  renderLesson(lesson);
+}
+
+function filterCategory(cat, el) {
+  state.filter = cat;
+  document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  renderCurriculum();
+  const lesson = getNextLesson();
+  renderLesson(lesson);
+}
+
+function switchTab(tab, el) {
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tabLearn').style.display = tab === 'learn' ? '' : 'none';
+  document.getElementById('tabDashboard').style.display = tab === 'dashboard' ? '' : 'none';
+  document.getElementById('tabCurriculum').style.display = tab === 'curriculum' ? '' : 'none';
+  if (tab === 'dashboard') renderDashboard();
+  if (tab === 'curriculum') renderCurriculum();
+}
+
+function renderDashboard() {
+  const total = CURRICULUM.length;
+  const done = state.completed.length;
+  const quizKeys = Object.keys(state.quizAnswered);
+  const quizCorrect = quizKeys.filter(id => {
+    const l = CURRICULUM.find(l => l.id === parseInt(id));
+    return l && state.quizAnswered[id] === l.quiz.correct;
+  }).length;
+  const quizPct = quizKeys.length > 0 ? Math.round((quizCorrect / quizKeys.length) * 100) : 0;
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+  // Category breakdown
+  const cats = ['Cloud', 'Security', 'Infrastructuur', 'Dienstverlening', 'Business'];
+  const catColors = ['#6c63ff', '#ff6584', '#43e97b', '#ffbe43', '#38bdf8'];
+  const catRows = cats.map((cat, i) => {
+    const catLessons = CURRICULUM.filter(l => l.cat === cat);
+    const catDone = catLessons.filter(l => state.completed.includes(l.id)).length;
+    const catPct = catLessons.length > 0 ? (catDone / catLessons.length) * 100 : 0;
+    return `
+      <div class="cat-row">
+        <div class="cat-name">${cat}</div>
+        <div class="cat-bar-wrap">
+          <div class="cat-bar-fill" style="width:${catPct}%;background:${catColors[i]}"></div>
+        </div>
+        <div class="cat-count">${catDone}/${catLessons.length}</div>
+      </div>`;
+  }).join('');
+
+  // Quiz ring SVG
+  const r = 30, circ = 2 * Math.PI * r;
+  const dash = (quizPct / 100) * circ;
+  const ringColor = quizPct >= 80 ? '#43e97b' : quizPct >= 50 ? '#ffbe43' : '#ff6584';
+
+  // Recent completed lessons
+  const recentIds = [...state.completed].reverse().slice(0, 6);
+  const recentHTML = recentIds.length > 0 ? recentIds.map(id => {
+    const l = CURRICULUM.find(l => l.id === id);
+    if (!l) return '';
+    const qa = state.quizAnswered[id];
+    const quizStatus = qa === undefined ? 'none' : (qa === l.quiz.correct ? 'correct' : 'wrong');
+    const quizLabel = qa === undefined ? 'Quiz open' : (qa === l.quiz.correct ? '✓ Correct' : '✗ Fout');
+    return `
+      <div class="recent-item" onclick="goToLesson(${l.id})">
+        <div class="ri-icon">✓</div>
+        <div class="ri-title">${l.title}</div>
+        <div class="ri-cat">${l.cat}</div>
+        <div class="ri-quiz ${quizStatus}">${quizLabel}</div>
+      </div>`;
+  }).join('') : '<div style="padding:20px;text-align:center;color:var(--muted);font-size:14px">Nog geen lessen voltooid</div>';
+
+  // Heatmap: last 70 days
+  const days = 70;
+  const today = new Date();
+  const actMap = {};
+  (state.activityLog || []).forEach(d => actMap[d] = (actMap[d] || 0) + 1);
+  let heatCells = '';
+  for (let i = days - 1; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - i);
+    const key = d.toDateString();
+    const count = actMap[key] || 0;
+    const level = count === 0 ? '' : count === 1 ? 'active-1' : count === 2 ? 'active-2' : count <= 4 ? 'active-3' : 'active-4';
+    const label = count === 0 ? d.toLocaleDateString('nl-NL', {day:'numeric',month:'short'}) : `${d.toLocaleDateString('nl-NL', {day:'numeric',month:'short'})}: ${count} les(sen)`;
+    heatCells += `<div class="heatmap-day ${level}" data-tip="${label}"></div>`;
+  }
+
+  document.getElementById('dashboardContent').innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-card c1">
+        <div class="stat-value" style="color:var(--accent)">${pct}%</div>
+        <div class="stat-label">Curriculum voltooid</div>
+      </div>
+      <div class="stat-card c2">
+        <div class="stat-value" style="color:var(--accent2)">${done}</div>
+        <div class="stat-label">Lessen geleerd</div>
+      </div>
+      <div class="stat-card c3">
+        <div class="stat-value" style="color:var(--accent3)">${state.streak}</div>
+        <div class="stat-label">Dagen streak 🔥</div>
+      </div>
+      <div class="stat-card c4">
+        <div class="stat-value" style="color:#ffbe43">${quizPct}%</div>
+        <div class="stat-label">Quiz score</div>
+      </div>
+    </div>
+
+    <div class="score-row">
+      <div class="score-card">
+        <div class="score-ring">
+          <svg width="72" height="72" viewBox="0 0 72 72">
+            <circle cx="36" cy="36" r="${r}" fill="none" stroke="var(--border)" stroke-width="6"/>
+            <circle cx="36" cy="36" r="${r}" fill="none" stroke="${ringColor}" stroke-width="6"
+              stroke-dasharray="${dash} ${circ}" stroke-linecap="round"/>
+          </svg>
+          <div class="score-ring-text" style="color:${ringColor}">${quizPct}%</div>
+        </div>
+        <div>
+          <div class="score-info-title">Quiz Prestaties</div>
+          <div class="score-info-sub">${quizCorrect} van ${quizKeys.length} vragen goed</div>
+          <div class="score-info-sub" style="margin-top:4px">${total - quizKeys.length} quiz${total - quizKeys.length !== 1 ? 'zes' : ''} nog open</div>
+        </div>
+      </div>
+      <div class="score-card">
+        <div class="score-ring">
+          <svg width="72" height="72" viewBox="0 0 72 72">
+            <circle cx="36" cy="36" r="${r}" fill="none" stroke="var(--border)" stroke-width="6"/>
+            <circle cx="36" cy="36" r="${r}" fill="none" stroke="var(--accent)" stroke-width="6"
+              stroke-dasharray="${(pct/100)*circ} ${circ}" stroke-linecap="round"/>
+          </svg>
+          <div class="score-ring-text" style="color:var(--accent)">${done}</div>
+        </div>
+        <div>
+          <div class="score-info-title">Lessen Voltooid</div>
+          <div class="score-info-sub">${done} van ${total} lessen</div>
+          <div class="score-info-sub" style="margin-top:4px">${total - done} lessen resterend</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cat-breakdown">
+      <div class="section-title" style="margin-bottom:18px">Voortgang per Categorie</div>
+      ${catRows}
+    </div>
+
+    <div class="heatmap-wrap">
+      <div class="section-title">Activiteit — Afgelopen 70 dagen</div>
+      <div class="heatmap-grid">${heatCells}</div>
+    </div>
+
+    ${recentIds.length > 0 ? `
+    <div class="section-title">Voltooide Lessen</div>
+    <div class="recent-list">${recentHTML}</div>
+    ` : ''}
+  `;
+}
+
+function goToLesson(id) {
+  // Switch to learn tab and open lesson
+  const tabs = document.querySelectorAll('.nav-tab');
+  tabs.forEach(t => t.classList.remove('active'));
+  tabs[0].classList.add('active');
+  document.getElementById('tabLearn').style.display = '';
+  document.getElementById('tabDashboard').style.display = 'none';
+  document.getElementById('tabCurriculum').style.display = 'none';
+  const lesson = CURRICULUM.find(l => l.id === id);
+  renderLesson(lesson);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// Init
+(async () => {
+  await loadState();
+  updateProgress();
+  const lesson = getNextLesson();
+  renderLesson(lesson);
+})();
+</script>
+</body>
+</html>
