@@ -1635,6 +1635,38 @@
     font-family:'DM Sans',sans-serif;
   }
   .ai-quick-btn:hover { background:rgba(108,99,255,0.2); color:var(--text); border-color:var(--accent); }
+
+  .program-card {
+    background: linear-gradient(135deg, rgba(108,99,255,0.12), rgba(67,233,123,0.06));
+    border: 1px solid rgba(108,99,255,0.25);
+    border-radius: 18px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .program-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+  .program-subtitle {
+    color: #b8b8d8;
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+  .program-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .program-module {
+    background: rgba(10,10,15,0.6);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .program-module strong { color: #f2f2ff; }
 </style>
 </head>
 <body>
@@ -1643,11 +1675,22 @@
   <div class="header">
     <div class="brand">
       <div class="brand-title" id="boardLabel">IT Business Academy</div>
-      <div class="brand-name" id="boardName">Rutger's<br>IT Opleiding</div>
+      <div class="brand-name" id="boardName">HR Professional<br>IT Opleiding</div>
     </div>
     <div class="streak-badge">
       <div class="streak-num" id="streakNum">0</div>
       <div class="streak-label">dag streak 🔥</div>
+    </div>
+  </div>
+
+  <div class="program-card">
+    <div class="program-title">🎓 Opleidingsplan: IT voor HR-medewerkers</div>
+    <div class="program-subtitle">Duur: 12 weken · 4 modules · praktijktrainingen + examens per module.</div>
+    <div class="program-grid">
+      <div class="program-module"><strong>Module 1 — IT Fundamentals</strong><br>Trainingen: MSP-model, Cloud basis, rollen in IT-teams, SLA's & dienstverlening.<br>Examens: 20-vragen kennistoets + case-opdracht "juiste IT-profiel aannemen".</div>
+      <div class="program-module"><strong>Module 2 — HR Business Partner in IT</strong><br>Trainingen: strategische personeelsplanning, arbeidsrecht, change management, leiderschap.<br>Examens: scenario-examen + mondeling adviesgesprek met manager.</div>
+      <div class="program-module"><strong>Module 3 — Finance voor HR in IT</strong><br>Trainingen: P&L lezen, budgetteren, cost-per-hire, business case van nieuwe FTE's.<br>Examens: rekenexamen + mini business case presentatie.</div>
+      <div class="program-module"><strong>Module 4 — Bedrijfskunde & Groei</strong><br>Trainingen: organisatiestructuur, processen, klantwaarde, KPI's en veranderaanpak.<br>Examens: integrale eindopdracht + eindpresentatie aan directie/MT.</div>
     </div>
   </div>
 
