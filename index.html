@@ -1093,6 +1093,180 @@
   .flow-node.pink { border-color: var(--accent2); background: rgba(255,101,132,0.06); }
   .flow-node.gold { border-color: #ffbe43; background: rgba(255,190,67,0.06); }
 
+  /* ── PROFILE BUTTON ── */
+  .profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 50px;
+    padding: 8px 16px 8px 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    position: relative;
+    overflow: hidden;
+  }
+  .profile-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(108,99,255,0.15), rgba(255,101,132,0.1));
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .profile-btn:hover { border-color: var(--accent); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(108,99,255,0.2); }
+  .profile-btn:hover::before { opacity: 1; }
+  .profile-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px;
+    color: white; flex-shrink: 0; position: relative; z-index: 1;
+  }
+  .profile-btn-text { position: relative; z-index: 1; }
+  .profile-btn-name { font-size: 13px; font-weight: 600; line-height: 1.2; }
+  .profile-btn-sub { font-size: 11px; color: var(--muted); }
+  .profile-btn-chevron { font-size: 10px; color: var(--muted); margin-left: 4px; position: relative; z-index: 1; transition: transform 0.2s; }
+  .profile-btn:hover .profile-btn-chevron { transform: translateX(2px); }
+
+  /* ── PROFILE OVERLAY ── */
+  .profile-overlay {
+    position: fixed; inset: 0;
+    background: rgba(5, 5, 12, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex; align-items: flex-start; justify-content: center;
+    padding: 24px 16px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+    overflow-y: auto;
+  }
+  .profile-overlay.open { opacity: 1; pointer-events: all; }
+  .profile-panel {
+    background: var(--surface); border: 1.5px solid var(--border);
+    border-radius: 24px; width: 100%; max-width: 820px; overflow: hidden;
+    transform: translateY(20px) scale(0.97);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative; margin: auto;
+  }
+  .profile-overlay.open .profile-panel { transform: translateY(0) scale(1); }
+  .profile-close {
+    position: absolute; top: 20px; right: 20px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--surface2); border: 1.5px solid var(--border);
+    color: var(--muted); font-size: 18px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; z-index: 10; line-height: 1;
+  }
+  .profile-close:hover { color: var(--text); border-color: var(--accent); background: rgba(108,99,255,0.1); }
+
+  /* Hero */
+  .profile-hero {
+    background: linear-gradient(135deg, #0e0e1a 0%, #12121f 50%, #0a0a15 100%);
+    padding: 48px 48px 36px; position: relative; overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .profile-hero::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 280px; height: 280px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(108,99,255,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .profile-hero::after {
+    content: ''; position: absolute; bottom: -40px; left: 40%;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,101,132,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .profile-hero-inner { display: flex; align-items: center; gap: 28px; position: relative; z-index: 1; }
+  .profile-big-avatar {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 28px;
+    color: white; flex-shrink: 0;
+    box-shadow: 0 0 0 4px rgba(108,99,255,0.25), 0 0 32px rgba(108,99,255,0.2);
+  }
+  .profile-hero-info { flex: 1; }
+  .profile-hero-name {
+    font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800;
+    background: linear-gradient(135deg, #e8e8f0, #6c63ff);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 6px; line-height: 1.1;
+  }
+  .profile-hero-role { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+  .profile-hero-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .profile-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.05em; padding: 5px 12px; border-radius: 20px; border: 1px solid; }
+  .profile-hero-stats {
+    display: flex; gap: 32px; margin-top: 32px; padding-top: 24px;
+    border-top: 1px solid var(--border); position: relative; z-index: 1; flex-wrap: wrap;
+  }
+  .profile-stat { text-align: center; }
+  .profile-stat-val { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+  .profile-stat-lbl { font-size: 11px; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; }
+
+  /* Body */
+  .profile-body { padding: 36px 48px 48px; }
+  .profile-section-title {
+    font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px;
+  }
+
+  /* Module cards */
+  .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-bottom: 36px; }
+  .portfolio-card {
+    background: var(--surface2); border: 1.5px solid var(--border);
+    border-radius: 16px; padding: 22px; position: relative; overflow: hidden;
+    transition: all 0.25s ease;
+  }
+  .portfolio-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.4); }
+  .portfolio-card.completed { border-color: rgba(67,233,123,0.3); }
+  .portfolio-card.in-progress { border-color: rgba(108,99,255,0.3); }
+  .portfolio-card.locked { opacity: 0.5; }
+  .portfolio-card-glow { position: absolute; top: 0; right: 0; width: 80px; height: 80px; border-radius: 50%; transform: translate(30%, -30%); pointer-events: none; }
+  .portfolio-card-icon { font-size: 26px; margin-bottom: 12px; }
+  .portfolio-card-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 4px; line-height: 1.3; }
+  .portfolio-card-sub { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+  .portfolio-progress-bar { height: 4px; background: var(--border); border-radius: 999px; overflow: hidden; margin-bottom: 8px; }
+  .portfolio-progress-fill { height: 100%; border-radius: 999px; transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .portfolio-progress-label { display: flex; justify-content: space-between; align-items: center; }
+  .portfolio-pct { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; }
+  .portfolio-status { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 20px; }
+
+  /* Skills */
+  .skills-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
+  .skill-badge { display: flex; align-items: center; gap: 8px; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 8px 14px; font-size: 12px; font-weight: 500; transition: all 0.2s; }
+  .skill-badge:hover { border-color: var(--accent); }
+  .skill-badge-icon { font-size: 15px; }
+  .skill-badge-lvl { font-size: 10px; color: var(--muted); margin-left: 2px; }
+
+  /* Certificates */
+  .cert-row { display: flex; flex-direction: column; gap: 12px; }
+  .cert-item {
+    display: flex; align-items: center; gap: 16px;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 14px; padding: 16px 20px; transition: all 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .cert-item:hover { border-color: rgba(255,190,67,0.4); }
+  .cert-item::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; border-radius: 999px; }
+  .cert-item.earned::after { background: linear-gradient(to bottom, #ffbe43, #ff8c00); }
+  .cert-item.in-prog::after { background: linear-gradient(to bottom, var(--accent), var(--accent2)); }
+  .cert-item.locked-cert::after { background: var(--border); }
+  .cert-icon { font-size: 28px; flex-shrink: 0; }
+  .cert-item.earned .cert-icon { filter: drop-shadow(0 2px 8px rgba(255,190,67,0.4)); }
+  .cert-item.locked-cert .cert-icon { filter: grayscale(1) opacity(0.4); }
+  .cert-info { flex: 1; }
+  .cert-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+  .cert-sub { font-size: 12px; color: var(--muted); }
+  .cert-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+  .cert-badge.gold { background: rgba(255,190,67,0.15); color: #ffbe43; border: 1px solid rgba(255,190,67,0.3); }
+  .cert-badge.blue { background: rgba(108,99,255,0.15); color: var(--accent); border: 1px solid rgba(108,99,255,0.3); }
+  .cert-badge.gray { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--border); }
+
   /* Layer diagram (cloud stack) */
   .layer-stack {
     display: flex;
@@ -1683,9 +1857,53 @@
       <div class="brand-title" id="boardLabel">IT Business Academy</div>
       <div class="brand-name" id="boardName">Rutger's<br>IT Opleiding</div>
     </div>
-    <div class="streak-badge">
-      <div class="streak-num" id="streakNum">0</div>
-      <div class="streak-label">dag streak 🔥</div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="streak-badge">
+        <div class="streak-num" id="streakNum">0</div>
+        <div class="streak-label">dag streak 🔥</div>
+      </div>
+      <button class="profile-btn" onclick="openProfile()">
+        <div class="profile-avatar">R</div>
+        <div class="profile-btn-text">
+          <div class="profile-btn-name">Rutger</div>
+          <div class="profile-btn-sub">Mijn portfolio</div>
+        </div>
+        <span class="profile-btn-chevron">▶</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Profile Overlay -->
+  <div class="profile-overlay" id="profileOverlay" onclick="handleOverlayClick(event)">
+    <div class="profile-panel" id="profilePanel">
+      <button class="profile-close" onclick="closeProfile()">✕</button>
+      <div class="profile-hero">
+        <div class="profile-hero-inner">
+          <div class="profile-big-avatar">R</div>
+          <div class="profile-hero-info">
+            <div class="profile-hero-name">Rutger</div>
+            <div class="profile-hero-role">HR Business Partner · Acknowledge ICT Group</div>
+            <div class="profile-hero-tags">
+              <span class="profile-tag" style="color:#6c63ff;border-color:rgba(108,99,255,0.4)">🎯 HR Business Partner</span>
+              <span class="profile-tag" style="color:#43e97b;border-color:rgba(67,233,123,0.4)">💼 IT Sector</span>
+              <span class="profile-tag" style="color:#ff6584;border-color:rgba(255,101,132,0.4)">📚 In Opleiding</span>
+            </div>
+          </div>
+        </div>
+        <div class="profile-hero-stats" id="profileStats">
+          <!-- filled by JS -->
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-section-title">🎓 Module voortgang</div>
+        <div class="portfolio-grid" id="portfolioGrid"><!-- filled by JS --></div>
+
+        <div class="profile-section-title">🛠 Vaardigheden</div>
+        <div class="skills-row" id="skillsRow"><!-- filled by JS --></div>
+
+        <div class="profile-section-title">🏆 Certificaten & Diploma's</div>
+        <div class="cert-row" id="certRow"><!-- filled by JS --></div>
+      </div>
     </div>
   </div>
 
@@ -3823,6 +4041,86 @@ const FIN_CURRICULUM = [
     caseTitle: '📌 Case: Maandelijks CFO-overleg structureren', caseBody: 'Je introduceert een maandelijks HR-finance overleg met de CFO van Acknowledge. Agenda: (1) HR metrics dashboard (10 min): personeelskostenratio, verloop, openstaande vacatures, hiring kosten. (2) Budget variance (5 min): HR-budget actual vs. plan. (3) Signalen en risico\'s (10 min): welke HR-risico\'s hebben financiële impact komende 90 dagen? (4) Besluiten gevraagd (5 min). Na 3 maanden: de CFO consulteert jou proactief bij businessplannen.',
     templateTitle: '🛠 CFO Gesprekvoorbereiding Checklist', templateItems: ['Bereid 3-5 datapunten voor die de CFO relevant vindt', 'Vertal elk HR-vraagstuk naar financieel effect (€)', 'Weet de huidige EBIT-marge en personeelskostenratio', 'Ken de budgetstatus: actual vs. plan YTD', 'Bereid 1-2 besluiten voor die je wil nemen (met alternatieven)', 'Sluit af met: wat heeft de CFO nodig van HR komende periode?'],
     quiz: { q: 'Welke aanpak maakt een HRBP geloofwaardig in gesprek met de CFO?', opts: ['Benadrukken dat mensen het belangrijkste kapitaal zijn', 'HR-voorstellen onderbouwen met data, financiële consequenties en meetbare baten', 'Zo min mogelijk finance-termen gebruiken om verwarring te voorkomen', 'Altijd instemmen met de financiële visie van de CFO'], correct: 1, explanation: 'Correct! Geloofwaardigheid bij de CFO bouw je op door HR-vraagstukken te vertalen naar financiële consequenties — met data, ROI-berekeningen en heldere alternatieven.' }
+  },
+  {
+    id: 221, cat: 'Rapportages', title: 'Geconsolideerde Jaarrekening Lezen',
+    body: `Grotere organisaties — of IT-groepen met meerdere werkmaatschappijen — publiceren een <strong>geconsolideerde jaarrekening</strong>. Dit is een samenvoeging van alle entiteiten in de groep alsof ze één bedrijf zijn. Interne transacties (bijv. management fees tussen BV's) worden <em>geëlimineerd</em>.\n\nWaarom relevant voor HRBP? Bij overnames of uitbreiding van Acknowledge met nieuwe BV's verandert de geconsolideerde balans en P&L. Jij moet de personeelskosten voor de hele groep kunnen lezen — niet alleen per entiteit. Bovendien: de toezichthouder, banken en (eventuele) PE-investeerders beoordelen de geconsolideerde cijfers.\n\nBelangrijke begrippen: <strong>Minderheidsbelang</strong> (als Acknowledge niet 100% van een BV bezit), <strong>Goodwill</strong> (betaalde premie bij overname, staat op de balans), <strong>Impairment</strong> (afwaardering goodwill als de overgenomen BV tegenvalt). HR-impact: bij een impairment volgt vaak een strategische heroverweging van de activiteiten — en dus een mogelijke reorganisatie.`,
+    points: ['Consolidatie: alle groepsentiteiten samengevat, interne transacties geëlimineerd', 'Goodwill = betaalde premie bij overname (staat op balans als immaterieel actief)', 'Impairment = goodwill afschrijven als overgenomen bedrijf tegenvalt', 'Minderheidsbelang: als groep niet 100% eigenaar is van een entiteit'],
+    caseTitle: '📌 Case: Acknowledge neemt een IT-bedrijf over', caseBody: 'Acknowledge neemt een Haags IT-bedrijf (25 FTE) over voor €4,5M. De netto vermogenswaarde is €2M → goodwill: €2,5M op de balans. Na 2 jaar blijkt de klantportfolio tegenvalt: churn van 40%. CFO besluit tot impairment van €1M goodwill. Als HRBP anticipeer je: een impairment-besluit signaleert dat de directie strategische koerswijziging overweegt. Jij start proactief een talent- en retentieanalyse van de overgenomen medewerkers.',
+    templateTitle: '🛠 Overnamechecklist HRBP', templateItems: ['Breng alle FTE in kaart per entiteit (vast, flex, zzp)', 'Vergelijk arbeidsvoorwaarden: CAO, pensioenen, leasebeleid', 'Identificeer nyckelposities (key persons) met hoog vliegrisico', 'Due diligence HR: zijn er openstaande claims, cao-verplichtingen, OR-instemmingsrechten?', 'Stel retentieplan op voor top-20% talent uit de overgenomen organisatie'],
+    quiz: { q: 'Wat is "goodwill" op de geconsolideerde balans?', opts: ['De waarde van het klantenbestand', 'De betaalde premie boven de netto vermogenswaarde bij een overname', 'De goodwill die medewerkers hebben richting het bedrijf', 'Een reservering voor toekomstige reorganisatiekosten'], correct: 1, explanation: 'Correct! Goodwill = overnamepremie boven reële waarde. Het staat als immaterieel actief op de balans en moet periodiek getest worden op bijzondere waardevermindering (impairment).' }
+  },
+  {
+    id: 222, cat: 'Rapportages', title: 'EBITDA vs. EBIT vs. Nettoresultaat: De Verschillen',
+    body: `In financiële gesprekken worden meerdere winstmaatstaven door elkaar gebruikt. Als HRBP moet je ze uit elkaar kunnen houden — en weten waarom de directie soms EBITDA prefereert boven nettowinst.\n\n<strong>EBIT</strong> (Earnings Before Interest and Taxes): operationele winst. Wat het bedrijf verdient vóór financiering en belasting.\n<strong>EBITDA</strong> (+ Depreciation and Amortization): operationele cashflow-proxy. Telt afschrijvingen terug. Populair bij overnames omdat het de onderliggende cashgeneratie toont zonder boekhoudkundige afschrijvingen.\n<strong>EBITDA-marge</strong> = EBITDA ÷ omzet. IT-dienstverleners: gezond 15-25%.\n<strong>Nettoresultaat</strong>: na rente en belasting. Dit is wat de aandeelhouder overhoudt.\n\nValkuil: een hoge EBITDA-marge bij lage nettowinst kan betekenen dat er veel schuld is (hoge rentelast). Als HRBP gebruik je EBITDA als referentiepunt, maar let je ook op de nettomarge voor de echte winstgevendheid.`,
+    points: ['EBIT = operationele winst (voor rente en belasting)', 'EBITDA = EBIT + afschrijvingen (cashflow-proxy, populair bij M&A)', 'Nettoresultaat = na alles: inclusief rente en belasting', 'Hoge EBITDA + lage nettowinst = verdacht: check de schulden'],
+    caseTitle: '📌 Case: PE-investeerder analyseert Acknowledge', caseBody: 'Een private equity-partij overweegt een meerderheidsbelang in Acknowledge. Ze kijken primair naar EBITDA: €2,1M op een omzet van €14M = EBITDA-marge 15%. Waardering: 6× EBITDA = €12,6M. De EBIT is €1,6M (verschil: €500K afschrijvingen op IT-activa). Nettowinst: €1,1M (na rente lening €250K + belasting €250K). Als HRBP bereid je voor: PE-partijen gaan na deal direct vragen naar management team stabiliteit, key person risks en HR due diligence.',
+    templateTitle: '🛠 Winstmaatstaven Cheat Sheet', templateItems: ['Omzet: €X', 'Brutowinst = omzet - directe kosten', 'EBITDA = brutowinst - opex + afschrijvingen', 'EBIT = EBITDA - afschrijvingen (D&A)', 'EBT = EBIT - rentekosten', 'Nettoresultaat = EBT - belasting (Vpb ~25,8%)'],
+    quiz: { q: 'Waarom gebruiken overnemende partijen vaak EBITDA als waarderingsbasis in plaats van nettowinst?', opts: ['Omdat nettowinst altijd lager is dan EBITDA', 'Omdat EBITDA de operationele cashgeneratie toont zonder boekhoudkundige vertekening van afschrijvingen en financieringsstructuur', 'Omdat belasting niet meegerekend hoeft te worden', 'Omdat EBITDA altijd positief is'], correct: 1, explanation: 'Correct! EBITDA laat zien hoeveel cash een bedrijf operationeel genereert, ongeacht hoe het gefinancierd is of welke afschrijvingsmethode wordt gebruikt. Dit maakt vergelijking tussen bedrijven eerlijker.' }
+  },
+  {
+    id: 223, cat: 'Personeelskosten', title: 'Total Rewards & Beloningsfilosofie',
+    body: `<strong>Total Rewards</strong> is een holistisch beloningsconcept dat verder gaat dan salaris: het omvat alles wat medewerkers ontvangen in ruil voor hun bijdrage. Als HRBP ontwerp je de beloningsfilosofie en bewak je de financiële houdbaarheid.\n\nComponenten Total Rewards: <strong>Base pay</strong> (brutosalaris), <strong>Variabele beloning</strong> (bonus, winstdeling, commissie), <strong>Benefits</strong> (pensioen, zorgverzekering, lease, telefoon), <strong>Learning & Development</strong> (opleiding, certificeringen), <strong>Work-life balance</strong> (thuiswerken, flexibele uren), <strong>Recognition</strong> (niet-monetair).\n\n<strong>Beloningsfilosofie</strong>: marktpositie kiezen (P25/P50/P75 van de markt) en communiceren. Een differentiator als Acknowledge kiest typisch P60-P75 voor schaarse rollen, P50 voor standaardfuncties. Dit heeft directe budgetimplicaties: elke percentielstap kost geld.\n\n<strong>Pay transparency</strong>: EU-wetgeving (Pay Transparency Directive) verplicht organisaties tot meer transparantie over beloningsverschillen — ook voor HRBP een toenemende verantwoordelijkheid.`,
+    points: ['Total Rewards: salaris + variabele beloning + benefits + L&D + werkklimaat', 'Beloningsfilosofie: welk marktpercentiel streef je na per functiegroep?', 'EU Pay Transparency Directive: verplicht tot beloningsrapportage en gender pay gap aanpak', 'Variabele beloning: motiveert maar verhoogt volatiliteit van personeelskosten'],
+    caseTitle: '📌 Case: Beloningsfilosofie herijken bij Acknowledge', caseBody: 'Acknowledge benchmarkt salarissen voor het eerst in 3 jaar. Resultaat: cloud-engineers zitten op P38 markt (te laag), servicedesk op P55 (neutraal), HR-adviseurs op P62 (prima). Advies: cloud-engineers ophogen naar P55 (kosten: €180K/jaar extra). Variabele component invoeren (10% bonus bij goede performance + bedrijfsresultaat). Financiële impact: +€220K vaste kosten + €0-€110K variabel (afhankelijk van resultaat). CFO vraagt payback: verwacht verloopvermindering -3 engineers = €75K besparing/jaar + productiviteitswinst.',
+    templateTitle: '🛠 Beloningsstructuur Ontwerp', templateItems: ['Bepaal marktpercentiel per functiegroep (P50, P60, P75)', 'Benchmark met actuele data (Radford, Mercer, Hay Group)', 'Stel vaste vs. variabele beloningssplit vast', 'Bereken totale beloningskostenimpact per scenario', 'Inclusie-check: zijn er onverklaarbare beloningsverschillen naar geslacht/achtergrond?', 'Communicatiestrategie: hoe leg je de filosofie uit aan medewerkers?'],
+    quiz: { q: 'Wat houdt de EU Pay Transparency Directive in voor werkgevers?', opts: ['Alle salarissen moeten openbaar op de website staan', 'Werkgevers moeten kunnen aantonen dat beloningsverschillen objectief verklaarbaar zijn en moeten rapporteren over gender pay gaps', 'Werkgevers mogen alleen P50 salarissen betalen', 'Variabele beloning is niet meer toegestaan'], correct: 1, explanation: 'Correct! De Pay Transparency Directive verplicht tot objectiveerbare beloningsstructuren en rapportage over loonverschillen. Onverklaarbare gender pay gaps moeten aangepakt worden — dit raakt direct aan jouw rol als HRBP.' }
+  },
+  {
+    id: 224, cat: 'Business Cases', title: 'Scenario-analyse & Gevoeligheidsanalyse',
+    body: `Elke financiële prognose is onzeker. Professionele HRBP's presenteren daarom nooit één getal maar werken met <strong>scenario's</strong>: optimistisch, realistisch en conservatief — elk met andere aannames.\n\n<strong>Scenario-analyse</strong>: stel drie samenhangende scenario's op met verschillende aannames over omzet, verloop, inflatie, etc. Bereken voor elk scenario de personeelskostenratio en EBIT-impact.\n\n<strong>Gevoeligheidsanalyse</strong> (sensitivity analysis): welke variabele heeft de grootste impact op het resultaat? Als verloop met 5% stijgt, wat kost dat? Als de hiring kosten met 20% stijgen, wat is dan de afwijking van het plan? Dit vertelt je waar je als HRBP de meeste aandacht aan moet geven.\n\n<strong>Monte Carlo simulatie</strong> (geavanceerd): genereer duizenden scenario's met willekeurige variatie in aannames — het resultaat is een kansverdeling. Niet elke HRBP doet dit, maar het begrip is relevant voor gesprekken met finance.`,
+    points: ['Altijd drie scenario\'s: optimistisch, realistisch, conservatief', 'Gevoeligheidsanalyse: welke aanname heeft het grootste effect op de uitkomst?', 'Presenteer ranges, geen puntschattingen: "€180K-€260K afhankelijk van verloopscenario"', 'Monte Carlo: kansverdelingen ipv losse scenario\'s (geavanceerd)'],
+    caseTitle: '📌 Case: Headcount scenario\'s voor 2026', caseBody: 'Acknowledge\'s directie vraagt een headcount-prognose voor 2026. HRBP presenteert drie scenario\'s: (1) Conservatief (markt vertraagt, groei 5%): +8 FTE, wervingskosten €64K. (2) Realistisch (autonome groei 15%): +22 FTE, kosten €176K. (3) Optimistisch (grote klantwin + marktgroei 25%): +38 FTE, kosten €304K. Gevoeligheidsanalyse: verlooppercentage heeft grootste impact (1% extra verloop = +2,5 FTE extra te werven = €20K). Aanbeveling: plan voor realistisch, reserveer flexibel budget voor 8 FTE extra.',
+    templateTitle: '🛠 Scenario Analyse Template', templateItems: ['Definieer de 3-5 kritische aannames (omzetgroei, verloop, tariefstijging etc.)', 'Stel per scenario de waarden in voor elke aanname', 'Bereken uitkomst per scenario (FTE-behoefte, kosten, marge)', 'Voer gevoeligheidsanalyse uit: verander één aanname tegelijk en meet effect', 'Presenteer: "Ons basisplan gaat uit van X; als Y met Z% verandert, wordt de uitkomst..."'],
+    quiz: { q: 'Wat is het doel van een gevoeligheidsanalyse in een financieel model?', opts: ['Bewijzen dat het basisscenario altijd correct is', 'Identificeren welke aannames het grootste effect hebben op de uitkomst, zodat je weet waar je risico zit', 'Het conservatieve scenario berekenen', 'Aantonen dat het optimistische scenario realistisch is'], correct: 1, explanation: 'Correct! Gevoeligheidsanalyse toont je welke variabelen het meeste impact hebben op het resultaat. Als verloop de grootste driver is, focust de HRBP de aandacht op retentie — niet op kleine kostenposten.' }
+  },
+  {
+    id: 225, cat: 'Budgetteren', title: 'Activity-Based Costing voor HR',
+    body: `<strong>Activity-Based Costing (ABC)</strong> is een kostentoewijzingsmethode die kosten koppelt aan de activiteiten die ze veroorzaken — in plaats van ze op te tellen in grote categorieën. Voor HR biedt dit inzicht in de werkelijke kosten van HR-diensten.\n\nTraditionale HR-rapportage: "HR-afdeling kost €450K/jaar." ABC-rapportage: werving (35% van tijd = €158K), salarisadministratie (20% = €90K), contractbeheer (10% = €45K), advieswerk HRBP (25% = €113K), opleiding coördinatie (10% = €45K).\n\nMet ABC kun je berekenen wat een recruitment traject echt kost (inclusief HR-tijd) en dit vergelijken met alternatieven (uitbesteden, RPO). Ook kun je aantonen aan de CFO waar HR de meeste waarde toevoegt versus waar outsourcing goedkoper is.`,
+    points: ['ABC: kosten koppelen aan activiteiten, niet aan afdelingen', 'HR-tijdregistratie (globaal): welke % gaat naar welke activiteiten?', 'ABC maakt make-or-buy van HR-diensten objectief vergelijkbaar', 'Uitkomst: kostprijs per HR-dienst (bijv. €1.800 per werving end-to-end)'],
+    caseTitle: '📌 Case: Uitbesteden salarisadministratie?', caseBody: 'Acknowledge overweegt salarisadministratie uit te besteden aan ADP. Huidige kosten ABC: €90K/jaar (2 HR-medewerkers × 20% tijd × €225K totale kosten). ADP-offerte: €65K/jaar (200 medewerkers × €325/jaar). Besparing: €25K. Maar: migratie kost €15K eenmalig, integratierisico met AFAS moet beheerd worden. Netto voordeel jaar 1: €10K. Daarna: €25K/jaar. Als HRBP adviseer je: financieel positief maar weeg ook risico en verlies van controle over gevoelige data.',
+    templateTitle: '🛠 HR Activiteit Kosten Mapping', templateItems: ['Identificeer alle HR-activiteiten (werving, admin, advies, L&D, etc.)', 'Schat per activiteit het tijdsbeslag (% van HR-capaciteit)', 'Vertaal naar kosten: % × totale HR-loonkosten', 'Bereken kostprijs per output (cost per hire, cost per salarisstrook)', 'Vergelijk intern vs. uitbesteden per activiteit'],
+    quiz: { q: 'Wat is het voordeel van Activity-Based Costing ten opzichte van traditionele kostentoewijzing?', opts: ['Het is altijd goedkoper', 'Het koppelt kosten aan specifieke activiteiten, waardoor je ziet welke activiteiten duur zijn en of uitbesteding loont', 'Het elimineert alle indirecte kosten', 'Het is verplicht door de belastingdienst'], correct: 1, explanation: 'Correct! ABC geeft inzicht in de werkelijke kosten per activiteit — in plaats van een groot totaalbedrag per afdeling. Dit maakt HR-keuzes (uitbesteden, automatiseren, prioriteren) veel onderbouwder.' }
+  },
+  {
+    id: 226, cat: 'Rapportages', title: 'Working Capital Management & HR',
+    body: `<strong>Working capital</strong> is het werkkapitaal: vlottende activa minus kortlopende schulden. Het toont of een bedrijf zijn dagelijkse bedrijfsvoering kan financieren zonder extra leningen. Formule: Vlottende activa (debiteuren + voorraad + kas) - Kortlopende schulden (crediteuren + kortlopende leningen).\n\nVoor HRBP is werkkapitaal relevant in drie situaties: (1) <strong>Loonbetalingsmoment</strong>: salarissen zijn een grote kortlopende schuld — je hebt genoeg cash nodig op de 25e. (2) <strong>Seizoensinvloeden</strong>: in de IT-sector pieken facturen soms aan het einde van het kwartaal; salarissen zijn gelijkmatig. (3) <strong>Groei</strong>: snelle groei vreet working capital (meer loon te betalen vóór extra omzet binnenkomt).\n\n<strong>Cash conversion cycle (CCC)</strong>: DIO + DSO - DPO. DIO = days inventory outstanding (niet relevant voor MSP), DSO = days sales outstanding (hoe lang betalen klanten?), DPO = days payable outstanding (hoe lang betaal je leveranciers?). Kortere DSO = beter voor liquiditeit.`,
+    points: ['Working capital = vlottende activa - kortlopende schulden', 'Positief working capital = organisatie kan lopende schulden betalen', 'DSO hoog? Klanten betalen traag → liquiditeitsdruk → slechte timing voor HR-investeringen', 'Groei vraagt meer working capital: anticipeer bij headcount-uitbreiding'],
+    caseTitle: '📌 Case: Salarisrun in gevaar?', caseBody: 'Acknowledge heeft september een piekfactuur van €1,8M naar een grote overheidsklant (betaaltermijn 60 dagen). De salarisrun voor 210 medewerkers op 25 september bedraagt €1,05M. Het banksaldo vóór betaling: €1,2M. Lijkt voldoende, maar er loopt ook een leaseaflossing van €180K op de 28e en een BTW-betaling van €310K op de 30e. Totaal uit: €1,54M. Saldo daalt naar €-340K. Als HRBP signaleer je dit tijdig richting CFO: kredietfaciliteit activeren of factoring inzetten.',
+    templateTitle: '🛠 Liquiditeitscheck Salarisrun', templateItems: ['Bereken datum en omvang salarisrun (netto + werkgeverslasten)', 'Check beschikbaar banksaldo op betaaldatum', 'Inventariseer andere betalingen in dezelfde week (lease, BTW, pensioenpremie)', 'Bereken netto-liquiditeitspositie na alle betalingen', 'Escaleer naar CFO als buffer < €100K (of eigen drempel)'],
+    quiz: { q: 'Wat is Days Sales Outstanding (DSO) en waarom is het relevant voor HR?', opts: ['Het aantal dagen dat HR nodig heeft om een vacature in te vullen', 'Het gemiddeld aantal dagen dat klanten wachten met betalen; een hoge DSO betekent liquiditeitsdruk wat HR-investeringen bemoeilijkt', 'De gemiddelde looptijd van arbeidscontracten', 'Het aantal dagen tot de volgende salarisrun'], correct: 1, explanation: 'Correct! DSO = gemiddelde betaaltermijn van klanten. Hoe hoger de DSO, hoe langer je als organisatie wacht op geld terwijl de loonkosten wel doorlopen. Dit beïnvloedt wanneer HR nieuwe investeringen kan doen.' }
+  },
+  {
+    id: 227, cat: 'Business Cases', title: 'Make vs. Buy vs. Partner: Strategische Sourcingbeslissing',
+    body: `De klassieke build-or-buy beslissing is in de moderne economie uitgegroeid tot een driehoek: <strong>Make</strong> (intern opbouwen), <strong>Buy</strong> (overnemen of inhuren), <strong>Partner</strong> (samenwerken met een andere partij). Dit geldt voor technologie, maar ook voor HR-capaciteit.\n\nAls HRBP gebruik je dit framework voor beslissingen zoals: Do we hire a data scientist or partner with an analytics firm? Do we build our own L&D platform or buy LMS-licenties? Do we open een second office or partner with a nearshore IT-provider?\n\nBeslissingscriteria: <strong>Strategische waarde</strong> (is het een kerncompetentie?), <strong>Kosten op 3-5 jaar</strong> (TCO: Total Cost of Ownership), <strong>Snelheid</strong> (time-to-market vs. time-to-hire), <strong>Risico</strong> (vendor lock-in, kwaliteitscontrole), <strong>Schaalbaarheid</strong>.\n\nValkuil: beslissingen op korte termijn kosten soms goedkoper maar binden je op lange termijn (lock-in). Als HRBP breng je de langetermijnpersoneelsimplicaties in — want een partnershipstrategie vraagt andere competenties dan een make-strategie.`,
+    points: ['Make-Buy-Partner driehoek: drie dimensies, niet twee', 'TCO (Total Cost of Ownership): kosten over de volledige levensduur, niet alleen aankoop', 'Strategische vraag: is het een kerncompetentie? Dan make. Zo niet? Dan buy of partner.', 'Partner-risico: afhankelijkheid, kwaliteitscontrole, contractuele bescherming'],
+    caseTitle: '📌 Case: L&D platform voor Acknowledge', caseBody: 'Acknowledge wil een intern leerplatform. Opties: (A) Make: eigen platform bouwen (€120K éénmalig + €30K/jaar onderhoud, 12 maanden development). (B) Buy: Cornerstone LMS licentie (€45K/jaar, direct beschikbaar). (C) Partner: LinkedIn Learning for Business (€38K/jaar, breed aanbod, weinig maatwerk). TCO jaar 1: Make €150K, Buy €45K, Partner €38K. Jaar 3: Make €90K, Buy €135K, Partner €114K. Conclusie: op termijn is Make het goedkoopst, maar alleen als learning een strategische kerncompetentie is. Acknowledge kiest Partner voor nu, evalueert in 2 jaar.',
+    templateTitle: '🛠 Make-Buy-Partner Beslismatrix', templateItems: ['Kerncompetentie? Ja → Make. Nee → volgende stap', 'Urgentie hoog? → Buy of Partner (sneller beschikbaar)', 'TCO berekenen voor 1, 3 en 5 jaar per optie', 'Afhankelijkheidsrisico beoordelen (vendor lock-in, IP-eigendom)', 'Schaalbaarheid: welke optie groeit mee met de organisatie?', 'HR-implicatie per optie: welke competenties intern nodig?'],
+    quiz: { q: 'Wat is TCO (Total Cost of Ownership) en waarom is het beter dan alleen kijken naar aanschafprijs?', opts: ['TCO is altijd goedkoper dan de aanschafprijs', 'TCO omvat alle kosten over de levensduur (aanschaf, implementatie, beheer, exit) — de aanschafprijs is slechts een deel', 'TCO is alleen relevant voor hardware-aankopen', 'TCO is hetzelfde als ROI'], correct: 1, explanation: 'Correct! Alleen naar aanschafprijs kijken geeft een vertekend beeld. TCO telt alles mee: implementatie, training, licenties, onderhoud, upgrades en eventuele exitkosten. Goedkoop kopen kan duur uitpakken op termijn.' }
+  },
+  {
+    id: 228, cat: 'Personeelskosten', title: 'Pensioenpremies: Complexiteit & Financiële Impact',
+    body: `Pensioenpremies zijn na brutosalaris de grootste kostenpost in de personeelslasten. En met de invoering van de <strong>Wet toekomst pensioenen (WTP)</strong> in 2024-2028 verandert het pensioenstelsel fundamenteel. Als HRBP moet je deze transitie kunnen doorrekenen.\n\nOud stelsel (DB — Defined Benefit): werkgever garandeert een bepaald pensioenresultaat. Risico ligt bij de werkgever/het fonds. Nieuw stelsel (DC — Defined Contribution): werkgever betaalt een vaste premie; het resultaat hangt af van beleggingsrendement. Risico ligt bij de werknemer.\n\n<strong>Financiële impact voor werkgever</strong>: bij overgang naar DC worden premies vaak hoger in de transitieperiode (compensatieregelingen voor oudere werknemers). Budgetimplicatie: Acknowledge moet mogelijk 2-4% extra pensioenpremie betalen voor 5-8 jaar. Op 200 FTE × gem. salaris €55K = €11M loonsom: 3% extra = €330K/jaar.\n\nAls HRBP communiceer je dit helder aan medewerkers én breng je de financiële impact in bij de CFO vóórdat het budget is vastgesteld.`,
+    points: ['WTP 2024-2028: overgang van DB naar DC pensioenstelsel', 'DC = vaste werkgeverspremie, variabel pensioenresultaat voor medewerker', 'Transitiekosten: compensatiepremie voor oudere medewerkers (tijdelijk hoger)', 'Impact berekenen: premiestijging × loonsom = extra kosten per jaar'],
+    caseTitle: '📌 Case: WTP-impact doorrekenen voor Acknowledge', caseBody: 'Acknowledge stapt in 2025 over naar nieuw pensioencontract (DC). Huidige gemiddelde werkgeverspremie: 16% van pensioengrondslag. Nieuwe premie: 18% (conform WTP-richtlijn) + 2% compensatieregeling voor medewerkers born before 1975 (45 personen). Totale impact: 18% × €9,5M grondslag = €1,71M (was €1,52M = +€190K/jaar). Compensatie: €250K éénmalig. Totale impact jaar 1: €440K. HRBP bespreekt dit in het najaarsgesprek CFO — vóór budgetronde 2025.',
+    templateTitle: '🛠 Pensioen Impact Berekening', templateItems: ['Bepaal de pensioengrondslag per medewerker (brutosalaris - franchise)', 'Huidige werkgeverspremie (%)', 'Nieuwe werkgeverspremie (%) na WTP', 'Premiestijging × loonsom = extra kosten per jaar', 'Compensatieregeling oudere medewerkers: scope en kosten', 'Communicatieplan: hoe leg je DC-stelsel uit aan medewerkers?'],
+    quiz: { q: 'Wat is het fundamentele verschil tussen een DB (Defined Benefit) en DC (Defined Contribution) pensioenregeling?', opts: ['DB is duurder voor de werknemer, DC voor de werkgever', 'Bij DB garandeert de werkgever een pensioenresultaat (risico bij werkgever); bij DC betaalt de werkgever een vaste premie en is het resultaat afhankelijk van belegging (risico bij werknemer)', 'DC is altijd voordeliger voor iedereen', 'Het verschil zit alleen in de premiepercentages'], correct: 1, explanation: 'Correct! Dit is het kern onderscheid. Bij DB draagt de werkgever/het fonds het beleggingsrisico. Bij DC draagt de medewerker het risico — maar de werkgeversbijdrage is voorspelbaar en beheersbaar.' }
+  },
+  {
+    id: 229, cat: 'Business Cases', title: 'Workforce Planning met Predictive Analytics',
+    body: `<strong>Predictive analytics</strong> in HR gebruikt historische data om toekomstige uitkomsten te voorspellen: wie gaat er vertrekken, welke functies zijn over 2 jaar nodig, welke medewerkers lopen risico op burnout? Dit verheft workforce planning van intuïtie naar datagedreven besluitvorming.\n\nBelangrijke toepassingen: <strong>Verlooprisico-model</strong> (op basis van tenure, salarishistorie, promotiepatroon, engagement scores), <strong>Skill gap analyse</strong> (huidige competenties vs. toekomstige behoeften), <strong>Workforce demand forecasting</strong> (op basis van omzetprognoses en historische FTE-ratios).\n\nVereisten: je hebt data nodig (HRMS, personeelsdossiers, engagement surveys), een analysetool (Power BI, Excel, of gespecialiseerde HR-analytics software) en basisbegrip van statistiek. Niet elke HRBP voert dit zelf uit — maar je moet de output kunnen interpreteren en de juiste vragen stellen aan data-analisten.\n\nEthiek: predictive analytics mag niet discriminatoir zijn. Een model dat (onbewust) benadeelt op basis van geslacht, leeftijd of etniciteit is juridisch en ethisch onacceptabel.`,
+    points: ['Predictive analytics: historische data → toekomstvoorspellingen in HR', 'Verlooprisico-model: identificeer mensen met hoog verlooprisico voordat ze vertrekken', 'Skill gap analyse: huidige vs. toekomstige competenties in kaart', 'Ethiek: modellen mogen niet discrimineren — test op bias'],
+    caseTitle: '📌 Case: Verlooprisico-model bij Acknowledge', caseBody: 'Acknowledge heeft 18% verloop. HR-analist bouwt een verlooprisico-model op basis van: aantal maanden geen salarisverhoging, tenure (<2 jaar = hoog risico), manager-rating, en deelname aan interne trainingen. Model identificeert 28 medewerkers met hoog risico (85% nauwkeurigheid op historische data). HRBP pakt de top-10 prioritair aan: gerichte retentiegesprekken, salarischeck en ontwikkelplan. Resultaat na 6 maanden: 7 van de 10 nog in dienst — €175K bespaard aan verloopkosten.',
+    templateTitle: '🛠 Workforce Analytics Aanpak', templateItems: ['Definieer de vraag: welk gedrag wil je voorspellen?', 'Inventariseer beschikbare data in HRMS, surveys en financiële systemen', 'Bouw of gebruik een analysemodel (Power BI, Python, R of HR-analyticsplatform)', 'Valideer het model: hoe nauwkeurig is het op historische data?', 'Vertaal output naar HR-actie (preventief gesprek, beloning, ontwikkeling)', 'Ethische check: discrimineert het model op beschermde kenmerken?'],
+    quiz: { q: 'Wat is een verlooprisico-model in HR-analytics?', opts: ['Een model dat berekent hoeveel budget er is voor ontslagvergoedingen', 'Een statistisch model dat op basis van historische data voorspelt welke medewerkers een hoog risico hebben om te vertrekken', 'Een juridisch document voor risicovolle ontslagen', 'Een overzicht van medewerkers die al ontslag hebben genomen'], correct: 1, explanation: 'Correct! Een verlooprisico-model gebruikt data zoals tenure, salarishistorie en betrokkenheidsscores om te voorspellen wie waarschijnlijk gaat vertrekken — zodat je preventief kunt handelen.' }
+  },
+  {
+    id: 230, cat: 'Business Cases', title: 'De CFO als Strategisch Partner: Financieel Leiderschap voor HRBP',
+    body: `De meest effectieve HRBP's bouwen een echte strategische alliantie met de CFO — niet alleen als budgetbeheerder, maar als mede-architekt van de organisatiestrategie. Dit vraagt om een fundamenteel andere mindset: je denkt niet in HR-activiteiten maar in <strong>waardecreatie</strong>.\n\n<strong>Shared language</strong>: de CFO denkt in risico, rendement en kapitaalefficiëntie. Jij als HRBP leert spreken in deze taal: "Ons verlooprisico vertegenwoordigt een latente verplichting van €1,2M — hier is ons derisking-plan." Dat is andere taal dan "we willen graag een leiderschapsprogramma."\n\n<strong>Proactieve agenda-setting</strong>: wacht niet tot de CFO om data vraagt. Signaleer trends vroegtijdig — stijgende personeelskostenratio, dalende billability, oplopend ziekteverzuim. Koppel aan financieel effect. Stel scenario\'s voor.\n\n<strong>Joint ownership</strong>: de beste HRBP-CFO relaties zijn gebaseerd op gedeelde verantwoordelijkheid. Jij neemt co-ownership van de personeelskosten en de organisatieproductiviteit. De CFO geeft jou toegang tot financiële data die je anders niet zou zien.`,
+    points: ['Waardecreatie-mindset: denk in financieel effect, niet in HR-activiteiten', 'Proactief signaleren: trends eerder benoemen dan de CFO ze ziet', 'Joint ownership: gedeelde verantwoordelijkheid voor personeelskosten en productiviteit', 'Trusted advisor status: kom je afspraken na, ben je eerlijk over onzekerheden'],
+    caseTitle: '📌 Case: HRBP-CFO strategisch overleg structureren', caseBody: 'Jij en de CFO van Acknowledge introduceren een maandelijks "People & Finance" overleg. Vaste agenda: (1) Personeelskostenratio actuals vs. forecast: €-afwijking en verklaring. (2) Top-3 HR-risico\'s met financieel effect (bijv. verloop cloud-team: €300K risico). (3) Workforce planning update: hoeveel FTE kunnen we nog aannemen binnen budget? (4) HR-investeringsvoorstel van de maand: met businesscase. (5) Wat heeft de CFO nodig van HR? Na 6 maanden consulteert de CFO jou bij alle businessplannen die personeelsimplicaties hebben. Dit is het doel.',
+    templateTitle: '🛠 People & Finance Overleg Agenda', templateItems: ['Opening: personeelskostenratio actual vs. budget (2 min)', 'HR-risicosignaal: top-3 risico\'s met € effect en mitigatiestatus (10 min)', 'Workforce planning: headcount actual vs. plan, wervingspipeline (5 min)', 'Investeringsvoorstel: businesscase presentatie (10 min)', 'CFO-agenda: wat heeft finance van HR nodig? (5 min)', 'Afsluiting: actiepunten met eigenaar en deadline (3 min)'],
+    quiz: { q: 'Welke aanpak kenmerkt een HRBP met "joint ownership" van de personeelskosten?', opts: ['De HRBP rapporteert alleen wanneer de CFO erom vraagt', 'De HRBP neemt mede-verantwoordelijkheid voor de personeelskostenratio en signaleert proactief trends met financieel effect', 'De HRBP beheert het HR-budget volledig zelfstandig zonder CFO-overleg', 'De HRBP laat alle financiële beslissingen over aan de CFO'], correct: 1, explanation: 'Correct! Joint ownership betekent dat je niet wacht tot de CFO vraagt, maar proactief eigenaarschap neemt over de personeelskostenontwikkeling — met data, scenario\'s en concrete aanbevelingen.' }
   }
 ];
 
@@ -4192,6 +4490,86 @@ const BK_CURRICULUM = [
     caseTitle: '📌 Case: Jouw strategische bijdrage bij Acknowledge', caseBody: 'De directie overweegt een grote klant te verwerven (€2M/jaar). Maar daarvoor zijn 15 extra cloud-engineers nodig die er nu niet zijn. Jij als HRBP presenteert in het MT: (1) Arbeidsmarktanalyse (12 weken time-to-hire voor dit profiel), (2) Make-or-buy analyse (intern opleiden vs. extern werven vs. inhuur), (3) Kosten: €450K voor werving + onboarding, (4) Risico: 20% kans dat we op time niet volledig bezet zijn. (5) Aanbeveling: start direct met hybride aanpak. Dit is HRBP op zijn best.',
     templateTitle: '🛠 De Strategische HRBP Agenda', templateItems: ['Maandelijks: HR-dashboard presenteren aan MT (metrics + trends)', 'Kwartaal: Workforce planning sessie met directie', 'Halfjaar: Talentreview + opvolgingsplanning', 'Jaarlijks: HR-strategie herijken op bedrijfsstrategie', 'Continu: aanwezig in businessoverleggen, niet alleen in HR-overleggen'],
     quiz: { q: 'Wat onderscheidt een strategische HRBP van een operationele HR-medewerker?', opts: ['De strategische HRBP heeft meer HR-kennis', 'De strategische HRBP denkt in bedrijfsresultaten, combineert meerdere disciplines en fungeert als trusted advisor voor de directie', 'De strategische HRBP doet geen operationeel werk', 'De strategische HRBP rapporteert aan de RvC'], correct: 1, explanation: 'Correct! Het gaat niet om meer kennis van HR-regels, maar om het vermogen om HR te verbinden aan bedrijfsresultaten — en zo een strategische sparringpartner te zijn voor de top van de organisatie.' }
+  },
+  {
+    id: 321, cat: 'Strategie', title: 'Businessmodel Canvas: Hoe Verdient een Bedrijf Geld?',
+    body: `Het <strong>Business Model Canvas (BMC)</strong> van Osterwalder is het meest gebruikte framework om te analyseren hoe een organisatie waarde creëert, levert en verdient. Het bestaat uit 9 bouwstenen die samen de businesslogica tonen.\n\nDe 9 bouwstenen: <strong>Klantensegmenten</strong> (wie bedien je?), <strong>Waardepropositie</strong> (welk probleem los je op?), <strong>Kanalen</strong> (hoe bereik je klanten?), <strong>Klantrelaties</strong> (hoe onderhoud je ze?), <strong>Inkomstenstromen</strong> (hoe verdien je?), <strong>Kernmiddelen</strong> (wat heb je nodig?), <strong>Kernactiviteiten</strong> (wat doe je?), <strong>Kernpartners</strong> (wie helpen je?), <strong>Kostenstructuur</strong> (wat kost het?).\n\nVoor HRBP is het BMC cruciaal: de Kernmiddelen en Kernactiviteiten bepalen welke mensen en competenties de organisatie nodig heeft. Een verandering in het businessmodel (bijv. van projectwerk naar MSP) heeft directe HR-consequenties. Jij moet dit als eerste zien.`,
+    points: ['BMC: 9 bouwstenen die samen het businessmodel beschrijven', 'Kernmiddelen en -activiteiten bepalen HR-strategie direct', 'Verandering in inkomstenstroom = verandering in benodigde competenties', 'BMC helpt HRBP begrijpen hoe de organisatie geld verdient'],
+    caseTitle: '📌 Case: Acknowledge shiftt van projectwerk naar MSP', caseBody: 'Acknowledge verandert zijn businessmodel: van losse projecten (eenmalige inkomsten) naar Managed Services (recurring revenue). In het BMC verandert: Inkomstenstromen (van project → abonnement), Klantrelaties (van transactioneel → langdurig partnership), Kernactiviteiten (van development → monitoring + proactief beheer), Kernmiddelen (van developers → cloud-engineers + NOC-operators). Als HRBP signaleer je: we hebben andere mensen nodig. Je start een skills gap analyse en een reskilling-programma voor bestaand personeel.',
+    templateTitle: '🛠 BMC → HR-implicaties Mapping', templateItems: ['Neem het huidige BMC door met het MT', 'Identificeer welke bouwstenen veranderen bij de nieuwe strategie', 'Map per gewijzigde bouwsteen de HR-implicatie (rollen, competenties, omvang)', 'Stel vast: intern reskilling of extern werven?', 'Bereken kosten van transitie vs. kosten van status quo'],
+    quiz: { q: 'Welke twee bouwstenen van het Business Model Canvas zijn het meest direct bepalend voor de HR-strategie?', opts: ['Kanalen en Klantrelaties', 'Kernmiddelen en Kernactiviteiten', 'Inkomstenstromen en Kostenstructuur', 'Klantensegmenten en Waardepropositie'], correct: 1, explanation: 'Correct! Kernmiddelen (o.a. medewerkers) en Kernactiviteiten (wat de organisatie doet) bepalen direct welke mensen en competenties nodig zijn. Verander die, en je personeelsbeleid moet mee.' }
+  },
+  {
+    id: 322, cat: 'Strategie', title: 'Blue Ocean Strategie: Nieuwe Markten Creëren',
+    body: `<strong>Blue Ocean Strategie</strong> (Kim & Mauborgne) stelt dat organisaties niet moeten concurreren in bestaande markten (red oceans, waar iedereen vecht om hetzelfde) maar nieuwe markten moeten creëren waar geen concurrentie is (blue oceans).\n\nHet <strong>ERRC-framework</strong>: Eliminate (wat concurrenten als vanzelfsprekend zien maar klanten niet waarderen), Reduce (wat overdreven aanwezig is), Raise (wat verhoogd moet worden boven standaard), Create (wat de branche nooit aangeboden heeft).\n\nVoor IT-dienstverleners: een Blue Ocean kan zijn het combineren van IT-services met HR-technologie consultancy — een niche die grote spelers negeren. Of: managed security specifiek voor zorgorganisaties met volledige compliance-garantie.\n\nVoor HRBP: Blue Ocean denken vraagt andere mensen. Als Acknowledge een nieuwe niche betreedt, heeft het pioniers nodig, geen beheerders. Dit verandert het wervingsprofiel, de cultuur en de beloning.`,
+    points: ['Blue Ocean: nieuwe markt creëren ipv bestaande markt bevechten', 'ERRC: Eliminate, Reduce, Raise, Create — vier assen van differentieatie', 'Nieuwe strategie = nieuwe competentiebehoeften = andere HR-agenda', 'Pionierscultuur vs. beheercultuur: fundamenteel verschillende people strategy'],
+    caseTitle: '📌 Case: Acknowledge\'s Blue Ocean in zorg-IT', caseBody: 'Acknowledge analyseert de markt met ERRC: Eliminate: wekelijkse statusrapporten (klanten willen geen papier). Reduce: generieke IT-support (markt is verzadigd). Raise: compliance-garantie voor AVG + NEN 7510 (zorgspecifiek). Create: dedicated zorg-IT-team met eigen zorgcertificering + SLA-garantie 99,9%. Nieuwe niche: zero concurrentie in eerste 18 maanden. HR-implicatie: wervingsprofiel verandert (zorg-achtergrond + IT), opleiding: NEN 7510 certificering voor heel team.',
+    templateTitle: '🛠 ERRC Analyse + HR-impact', templateItems: ['Eliminate: wat kunnen we weggooien dat klanten toch niet waarderen?', 'Reduce: wat overdrijven we vergeleken met wat klanten willen?', 'Raise: wat moet beter dan de marktstandaard?', 'Create: welke nieuwe waarde kunnen we bieden die nog niet bestaat?', 'HR-implicatie per as: welke competenties zijn nodig voor de nieuwe propositie?'],
+    quiz: { q: 'Wat is het kernidee van Blue Ocean strategie?', opts: ['Beter zijn dan de concurrentie in dezelfde markt', 'Een nieuwe marktruimte creëren waar geen directe concurrentie is door waarde-innovatie', 'Focussen op de goedkoopste propositie', 'Fuseren met concurrenten om schaal te bereiken'], correct: 1, explanation: 'Correct! Blue Ocean gaat niet over beter concurreren, maar over het overbodig maken van concurrentie door een nieuwe markt te definiëren. Dit vraagt creativiteit én lef — en andere mensen dan een bestaande markt beheren.' }
+  },
+  {
+    id: 323, cat: 'Leiderschap', title: 'Verandermanagement: Modellen & HR-rol',
+    body: `Organisaties veranderen continu — fusies, reorganisaties, technologie-implementaties, cultuurverandering. Als HRBP ben je de architect van het menselijke veranderproces. Zonder effectief verandermanagement mislukken de meeste transformaties.\n\n<strong>Kotter's 8-stappen model</strong>: (1) Urgentie creëren, (2) Leidende coalitie bouwen, (3) Visie formuleren, (4) Visie communiceren, (5) Empowerment, (6) Korte-termijn successen boeken, (7) Consolideren en doorgaan, (8) Verankeren in cultuur.\n\n<strong>Kübler-Ross verandercurve</strong>: mensen reageren op verandering als op rouw: ontkenning → boosheid → onderhandelen → depressie → acceptatie. Als HRBP herken je waar medewerkers zitten en pas je je communicatie en begeleiding aan.\n\n<strong>ADKAR-model</strong> (Prosci): Awareness (weten dat verandering nodig is), Desire (willen meedoen), Knowledge (weten hoe), Ability (kunnen doen), Reinforcement (borgen). Praktisch en individueel toepasbaar.`,
+    points: ['Kotter 8-stappen: sequentieel veranderproces voor grote transformaties', 'Kübler-Ross: medewerkers doorlopen verandering als rouwproces', 'ADKAR: individueel model — diagnose waarom iemand verandering weerstand biedt', 'HRBP-rol: architect van menselijk veranderproces, niet alleen communicatiekanaal'],
+    caseTitle: '📌 Case: Agile transformatie bij Acknowledge', caseBody: 'Acknowledge gaat over van waterfall naar agile werken. 60% van de engineers is enthousiast, 30% sceptisch, 10% actief weerstand. Kübler-Ross: de 10% zit in ontkenning of boosheid. ADKAR-diagnose: ze hebben Awareness (weten dat het gaat veranderen) maar missen Desire (willen het niet). HRBP-aanpak: individuele gesprekken met weerstandsgroep, betrokkenheid bij pilot, zichtbare early wins communiceren. Na 3 maanden: weerstandsgroep van 10% naar 4%. 2 medewerkers verlaten vrijwillig — ándere fit bij Acknowledge geworden.',
+    templateTitle: '🛠 Verandermanagement Plan HRBP', templateItems: ['Diagnose: in welke fase zitten medewerkers (Kübler-Ross)?', 'Segmenteer: enthousiasten, volgers, twijfelaars, weerstand', 'ADKAR-check per segment: waar zit de blokkade?', 'Communicatieplan: boodschap per fase en per segment', 'Ambassadeurs identificeren: wie helpt de verandering trekken?', 'Meten: pulse survey na elke mijlpaal'],
+    quiz: { q: 'Wat meet het ADKAR-model in verandermanagement?', opts: ['De snelheid van een organisatieverandering', 'Waar een individu vastloopt in het veranderproces: Awareness, Desire, Knowledge, Ability of Reinforcement', 'De financiële kosten van een reorganisatie', 'De mate van weerstand in het managementteam'], correct: 1, explanation: 'Correct! ADKAR is een individueel model. Het helpt diagnose stellen: waarom verandert deze specifieke medewerker niet? Gebrek aan Awareness vraagt andere interventie dan gebrek aan Ability.' }
+  },
+  {
+    id: 324, cat: 'Organisatie', title: 'Corporate Governance & Medezeggenschap',
+    body: `<strong>Corporate governance</strong> is het stelsel van regels, verhoudingen en processen waarmee een organisatie wordt bestuurd en gecontroleerd. Het regelt de verhoudingen tussen aandeelhouders, directie, toezichthouders en overige stakeholders.\n\nIn Nederland: <strong>Two-tier model</strong> — Raad van Bestuur (uitvoerend, dagelijkse leiding) en Raad van Commissarissen (toezicht, benoeming/ontslag RvB). Bij beursgenoteerde bedrijven gelden strenge governance-eisen (Corporate Governance Code).\n\n<strong>Medezeggenschap</strong>: bij 50+ medewerkers is een <strong>Ondernemingsraad (OR)</strong> verplicht. De OR heeft: Informatierecht (altijd inzage in financiële en strategische informatie), Adviesrecht (reorganisaties, overnames, fusies), Instemmingsrecht (arbeidsvoorwaarden, beoordelingssystemen, personeelsvolgsystemen).\n\nAls HRBP werk je intensief samen met de OR. Instemmingsrecht op een nieuw HRMS betekent dat jij het OR-adviestraject moet doorlopen vóórdat het systeem live gaat. Dit kost tijd — plan dit in bij elke HR-implementatie.`,
+    points: ['Two-tier board: Raad van Bestuur (uitvoerend) + Raad van Commissarissen (toezicht)', 'OR verplicht bij 50+ medewerkers', 'Adviesrecht: reorganisaties, overnames — OR moet tijdig betrokken worden', 'Instemmingsrecht: HR-systemen, beoordelingsbeleid — OR kan ja of nee zeggen'],
+    caseTitle: '📌 Case: HRMS-implementatie en OR-instemming', caseBody: 'Acknowledge implementeert een nieuw HRMS met performance tracking en GPS-functionaliteit voor buitendienstmedewerkers. De OR heeft instemmingsrecht op personeelsvolgsystemen (WOR art. 27). HRBP start het traject: (1) Informatiesessie OR: systeem demo, privacy-impact assessment presenteren. (2) OR-advies vragen: schriftelijk, met argumentatie. (3) OR heeft 6 weken voor advies. OR vraagt: geen GPS-tracking, alleen time-tracking. Akkoord → implementatie start. Zonder OR-instemming: implementatie illegaal en werknemer kan naar kantonrechter. ',
+    templateTitle: '🛠 OR Engagement Plan bij HR-beslissingen', templateItems: ['Check: vereist dit besluit OR-advies of instemming? (WOR-tabel)', 'Adviesrecht: OR informeren minimaal 6 weken voor besluit', 'Instemmingsrecht: OR-akkoord vereist vóór invoering', 'Documenteer alle OR-communicatie schriftelijk', 'Bij weigering: overlegprocedure of kantonrechter (laatste optie)', 'Betrek OR vroeg: medezeggenschap als co-creator, niet als blokkade'],
+    quiz: { q: 'Wanneer heeft de Ondernemingsraad instemmingsrecht (niet alleen adviesrecht)?', opts: ['Bij alle beslissingen van het management', 'Bij besluiten over arbeidsvoorwaarden, beoordelingssystemen en personeelsvolgsystemen', 'Alleen bij reorganisaties met meer dan 20 ontslagen', 'Bij financiële besluiten van de Raad van Bestuur'], correct: 1, explanation: 'Correct! Instemmingsrecht (WOR art. 27) geldt voor regelingen die direct het personeel raken: beloningssystemen, beoordelingssystememen, werktijden en personeelsvolgsystemen. Dit is sterker dan adviesrecht: de OR kan daadwerkelijk ja of nee zeggen.' }
+  },
+  {
+    id: 325, cat: 'Processen', title: 'Lean & Six Sigma: Procesoptimalisatie voor HRBP',
+    body: `<strong>Lean</strong> is een managementfilosofie die gericht is op het elimineren van verspilling (waste) in processen. Oorspronkelijk uit Toyota's productiemethoden, maar breed toepasbaar — ook in HR-processen. De 8 soorten verspilling (TIMWOODS): Transport, Inventory, Motion, Waiting, Overproduction, Overprocessing, Defects, Skills underutilization.\n\n<strong>Six Sigma</strong> is een data-gedreven methodologie voor kwaliteitsverbetering: reduceer afwijkingen in een proces tot minder dan 3,4 fouten per miljoen. DMAIC-cyclus: Define, Measure, Analyze, Improve, Control.\n\nVoor HRBP: Lean toepassen op het wervingsproces. Hoeveel stappen zitten er tussen eerste contact en arbeidscontract? Welke stappen voegen geen waarde toe? Een typisch wervingsproces heeft 15-20 stappen; 5-8 zijn waarde-toevoegende stappen. De rest is waste (wachttijden, dubbele goedkeuringen, overprocessing).\n\nReultaat: door Lean toe te passen op recruitment daalt de time-to-hire van 60 naar 35 dagen — en bespaart Acknowledge €25K per vacature aan gemiste productiviteitsdagen.`,
+    points: ['Lean: elimineer waste in processen (TIMWOODS)', 'Six Sigma: reduceer procesfouten tot statistisch minimum (DMAIC)', 'HR-processen bevatten ook veel waste: wachttijden, dubbele handtekeningen, overprocessing', 'Lean recruitment: time-to-hire omlaag = minder gemiste productiviteit = besparing'],
+    caseTitle: '📌 Case: Lean recruitment bij Acknowledge', caseBody: 'Het wervingsproces bij Acknowledge duurt gemiddeld 62 dagen (intake tot handtekening). HRBP maakt een value stream map: dag 1-5 intake, dag 6-15 sourcing, dag 16-20 CV-screening, dag 21-28 eerste interview, dag 29-45 WACHTEN op beschikbaarheid hiring manager, dag 46-52 tweede interview, dag 53-55 offer, dag 56-62 onderhandeling en tekenen. Waste geïdentificeerd: 17 wachtdagen bij hiring manager (80% van wachttijd). Oplossing: vaste interviewslots elke dinsdag + donderdag. Nieuwe time-to-hire: 38 dagen. Besparing: 24 dagen × €600/dag gemiste omzet × 25 vacatures/jaar = €360K.',
+    templateTitle: '🛠 Lean HR Proces Analyse', templateItems: ['Teken het huidige proces stap voor stap (value stream map)', 'Kleur elke stap: groen (waarde-toevoegend), rood (waste)', 'Kwantificeer de waste: hoeveel tijd/geld per waste-stap?', 'Identificeer de grootste waste-posten (80/20 regel)', 'Ontwerp verbeterd proces: elimineer of reduceer de top-3 waste-items', 'Meet na 3 maanden: heeft het nieuwe proces de target gehaald?'],
+    quiz: { q: 'Wat is "waste" in Lean-terminologie?', opts: ['Geld dat verspild wordt aan salarissen', 'Elke activiteit in een proces die geen waarde toevoegt voor de klant of eindgebruiker', 'Medewerkers die niet productief zijn', 'Materialen die niet gebruikt worden'], correct: 1, explanation: 'Correct! Waste (verspilling) is alles in een proces wat geen waarde toevoegt voor de klant. In HR: wachttijden, dubbele goedkeuringen, onnodige stappen. Elimineer die en het proces wordt sneller en goedkoper.' }
+  },
+  {
+    id: 326, cat: 'Marketing', title: 'Employer Branding: Strategie & ROI',
+    body: `<strong>Employer branding</strong> is de reputatie van een organisatie als werkgever — en de actieve strategie om die reputatie te bouwen en te beheren. In een krappe arbeidsmarkt is employer branding een strategische differentiator.\n\nDe <strong>Employee Value Proposition (EVP)</strong> is de kern: wat biedt de organisatie medewerkers dat anderen niet bieden? Geen laundry list van "leuke collega's", maar een scherpe, geloofwaardige propositie. Acknowledge's EVP zou kunnen zijn: "Werk aan de scherpste cloud- en security-uitdagingen, in een team van specialisten, met ruimte voor jouw groei."\n\n<strong>ROI van employer branding</strong>: moeilijker te meten maar zeker aanwezig. Metrics: cost per hire (daalt bij sterk employer brand), quality of hire, time-to-fill, acceptance rate (% van aanbiedingen aangenomen), Glassdoor-rating. Een Glassdoor-rating van 4.2+ heeft aantoonbaar lagere wervingskosten dan een rating van 3.0.\n\n<strong>Interne employer branding</strong>: je huidige medewerkers zijn je beste of slechtste ambassadeurs. Als ze niet trots zijn op hun werkgever, verliest externe marketing al zijn kracht.`,
+    points: ['EVP: waarom hier werken vs. concurrentie? Scherp, authentiek, differentiërend', 'Glassdoor en LinkedIn zijn de nieuwe sollicitatiebalie — beheer actief je reputatie', 'Employer brand ROI: lagere cost per hire, hogere acceptance rate, beter talent', 'Interne medewerkers zijn eerste employer brand ambassadeurs'],
+    caseTitle: '📌 Case: Employer branding campagne Acknowledge', caseBody: 'Acknowledge heeft moeite cloud-engineers te werven. Glassdoor-rating: 3,4. Concurrenten: 4,1 gemiddeld. Cost per hire: €9.200 vs. marktgemiddelde €6.800. HRBP stelt employer brand programma voor: (1) Exit-interviews analyseren: echte pijnpunten identificeren. (2) Verbeteringen doorvoeren (merit-based promotie, flexibel thuiswerken, certificeringsbudget €2K/jaar). (3) Medewerkers vragen reviews te plaatsen. (4) LinkedIn showcase campagne: engineers delen hun werk. Budget: €35K. Verwacht resultaat: Glassdoor naar 3,9, cost per hire van €9,2K naar €7,5K = besparing €42,5K/jaar bij 25 hires.',
+    templateTitle: '🛠 Employer Brand Analyse & Actieplan', templateItems: ['Meting: Glassdoor, LinkedIn follower growth, acceptance rate, NPS medewerkers', 'EVP-sessie: wat maakt werken hier écht anders (intern en extern valideren)', 'Pijnpunten identificeren: exit-interviews, stay-interviews, pulse surveys', 'Verbeteringen doorvoeren: employer brand begint intern', 'Content strategie: medewerkersverhalen, LinkedIn, evenementen', 'ROI meting na 12 maanden: cost per hire, time-to-fill, acceptance rate'],
+    quiz: { q: 'Wat is de Employee Value Proposition (EVP) en waarom is het meer dan een lijst van arbeidsvoorwaarden?', opts: ['De EVP is het salarispakket plus secundaire voorwaarden', 'De EVP is de kern van wat een organisatie medewerkers biedt die onderscheidend en authentiek is — niet wat iedereen biedt, maar wat jij uniek biedt', 'De EVP is het wervingsbudget per hire', 'De EVP is de gemiddelde score op Glassdoor'], correct: 1, explanation: 'Correct! Een sterke EVP is niet "leuke collega\'s en goede koffie" — dat heeft iedereen. Het gaat om de unieke combinatie van uitdaging, cultuur, groei en beloning die bij jouw organisatie hoort. Dat trekt het juiste talent.' }
+  },
+  {
+    id: 327, cat: 'Leiderschap', title: 'Culturele Intelligentie & Inclusief Leiderschap',
+    body: `In een internationaliserende arbeidsmarkt en IT-sector werken steeds meer teams met mensen uit verschillende culturen. <strong>Culturele intelligentie (CQ)</strong> is het vermogen om effectief te functioneren in cultureel diverse situaties — voor HRBP essentieel bij internationale werving, teambuilding en leiderschap.\n\n<strong>Hofstede's cultuurdimensies</strong>: machtafstand (acceptatie van hiërarchie), individualisme vs. collectivisme, masculiniteit vs. femininiteit, onzekerheidsvermijding, langetermijnoriëntatie, vrije wil vs. repressie. Nederland scoort hoog op individualisme en laag op machtafstand — andere landen doen dit fundamenteel anders.\n\n<strong>Inclusief leiderschap</strong>: leiders die psychologische veiligheid creëren, diversiteit actief benutten en inclusieve besluitvormingsprocessen hanteren. Research (Deloitte, McKinsey) toont: inclusieve teams presteren 35% beter op innovatie en hebben 20% lager verloop.\n\nAls HRBP: ontwerp selectie- en onboardingprocessen die bias reduceren, ontwikkel managers in culturele intelligentie, en meet diversiteits- en inclusiemetrics actief.`,
+    points: ['CQ: culturele intelligentie — leren van en aanpassen aan culturele verschillen', 'Hofstede: 6 dimensies waarop culturen fundamenteel verschillen', 'Inclusieve teams: +35% innovatie, -20% verloop vs. homogene teams (McKinsey)', 'HRBP-rol: bias-vrije processen ontwerpen, managers coachen, D&I meten'],
+    caseTitle: '📌 Case: Internationaal team bij Acknowledge', caseBody: 'Acknowledge heeft een Indiaas development center (12 medewerkers) dat samenwerkt met het Nederlandse team (30 medewerkers). Problemen: Indiase collega\'s spreken zelden managers tegen (hoge machtafstand), vergaderingen zijn ineffectief (Nederlanders direct en confronterend, Indiase collega\'s indirect). HRBP-aanpak: (1) Trainingen culturele intelligentie voor beide teams. (2) Gestructureerde vergaderformat: iedereen spreekt, geen interrupted interruptions. (3) Feedback via anonieme tools (verlaagt drempel). (4) Manager-coaching: vraag expliciet naar input van stille teamleden. Resultaat: medewerkerstevredenheid Indiaas team +18 punten.',
+    templateTitle: '🛠 Inclusie-check voor HR-processen', templateItems: ['Werving: zijn vacatureteksten gender-neutraal en cultuurinclusief?', 'Selectie: panelinterviews ipv 1-op-1 om confirmatbiases te reduceren', 'Onboarding: cultuurintroductie voor internationals', 'Performance: zijn beoordelingscriteria objectief en cultuurblind?', 'Inclusie-meting: D&I score in medewerkerstevredenheidsonderzoek', 'Pay gap analyse: zijn er onverklaarbare beloningsverschillen?'],
+    quiz: { q: 'Wat meet Hofstede\'s dimensie "machtafstand" in een organisatiecultuur?', opts: ['De financiële macht van de directie', 'De mate waarin medewerkers hiërarchische machtsverschillen accepteren en verwachten', 'De afstand tussen hoofd- en nevenvestigingen', 'Het verschil in salaris tussen hoogste en laagste functie'], correct: 1, explanation: 'Correct! Hoge machtafstand (bijv. India, Mexico) betekent dat medewerkers het normaal vinden dat managers beslissen en niet tegengesproken worden. Lage machtafstand (bijv. Nederland, Denemarken) = meer gelijkwaardige verhoudingen en directe communicatie.' }
+  },
+  {
+    id: 328, cat: 'Strategie', title: 'Fusies & Overnames: De HR-due Diligence',
+    body: `Bij fusies en overnames (M&A) is de HR-due diligence een kritische fase die vaak onderschat wordt. Onderzoek toont dat 50-70% van alle overnames de verwachte waarde niet realiseert — en in de meeste gevallen zijn menselijke en culturele factoren de hoofdoorzaak.\n\n<strong>HR-due diligence scope</strong>: (1) Personeelsbestand (aantallen, kosten, contractvormen), (2) Arbeidsrechtelijke verplichtingen (cao, OR-akkoorden, hangende claims), (3) Pensioenverplichtingen (soms enorme verborgen schulden!), (4) Cultuuranalyse (klikt het?), (5) Key person risks (wie zijn de kritische medewerkers?), (6) Beloningsverschillen (hoe harmoniseer je salarissen na overname?).\n\n<strong>Post-merger integration</strong>: 100-dagenplan voor HR. In de eerste 100 dagen na closing bepaal je voor 70% of de integratie slaagt. Als HRBP leid je het integratieproces: communicatie, harmonisatie van arbeidsvoorwaarden, cultuurintegratie, retentie van key persons.`,
+    points: ['50-70% van overnames mislukt door menselijke/culturele factoren — HR is kritiek', 'Due diligence: arbeidskosten, cao, pensioenverplichtingen, hangende claims', 'Pensioen: soms enorme verborgen schulden bij DB-regelingen', 'Key person retention: top-talent van overgenomen bedrijf dreigt te vertrekken na deal'],
+    caseTitle: '📌 Case: Acknowledge neemt Haags IT-bedrijf over (HR DD)', caseBody: 'Acknowledge voert HR-due diligence uit op een Haags IT-bedrijf (40 FTE). Bevindingen: (1) Loonkosten: €3,8M/jaar — 8 medewerkers zitten significant boven markt. (2) Pensioen: DB-regeling met dekkingstekort pensioenfonds (€320K potentiële bijstortingsverplichting). (3) Hangende claim: 1 medewerker in procedure wegens onterecht ontslag (risico: €45K). (4) Cultuur: erg informeel, geen formele beoordelingscyclus. (5) Key persons: 3 senior engineers zijn bepalend voor 60% van klantomzet — vertrekrisico na closing. HRBP-aanbeveling: aankoopprijs corrigeren voor pensioenrisico + retentieplan voor 3 key persons (bonus van €30K elk bij 1 jaar blijven).',
+    templateTitle: '🛠 HR Due Diligence Checklist M&A', templateItems: ['Personeelsoverzicht: FTE, contractvorm, salarisniveau per functiegroep', 'CAO-verplichtingen: welke cao, looptijd, bijzondere bepalingen', 'Pensioenregeling: DB of DC? Dekkingsgraad? Bijstortingsrisico?', 'Arbeidsrechtelijke risico\'s: hangende procedures, claims, OR-akkoorden', 'Key persons: wie zijn onmisbaar? Wat is hun vertrekrisico?', 'Cultuurassessment: past de organisatiecultuur bij Acknowledge?'],
+    quiz: { q: 'Wat is het grootste HR-risico dat HRBP moet onderzoeken bij een DB-pensioenregeling in een overnametraject?', opts: ['Het risico dat medewerkers meer vakantiedagen hebben', 'Een potentieel bijstortingsrisico: als het pensioenfonds ondergedekt is, kan de werkgever verplicht worden bij te storten', 'Het risico dat de pensioenleeftijd verandert', 'Het risico dat medewerkers overstappen naar een concurrerende pensioenverzekeraar'], correct: 1, explanation: 'Correct! Bij DB-regelingen garandeert de werkgever een pensioenresultaat. Als het fonds ondergedekt is, moet de werkgever bijstorten — soms enorme bedragen. Dit is een verborgen schuld die de overnameprijs sterk kan beïnvloeden.' }
+  },
+  {
+    id: 329, cat: 'Processen', title: 'Data Governance & Privacy in HR: AVG Diepgaand',
+    body: `De <strong>Algemene Verordening Gegevensbescherming (AVG)</strong> is niet alleen een compliance-verplichting — het is een fundamentele eis aan hoe organisaties met persoonsgegevens omgaan. Als HRBP beheer je dagelijks grote hoeveelheden gevoelige persoonsgegevens.\n\n<strong>Juridische grondslagen</strong> voor HR-verwerking: toestemming (maar opgepast: werknemers staan in afhankelijkheidsrelatie), uitvoering overeenkomst (arbeidscontract), wettelijke verplichting (salarisadministratie, Belastingdienst), gerechtvaardigd belang.\n\n<strong>Bijzondere persoonsgegevens</strong> in HR: gezondheidsdata (ziekteverzuim), vakbondslidmaatschap, religieuze overtuiging. Maximaal beschermd — verwerking alleen in strikt omschreven gevallen.\n\n<strong>Data governance</strong>: wie is verantwoordelijk voor welke data? In HR: de HRBP is often de data controller voor personeelsdossiers. Bewerkersovereenkomsten nodig met externe partijen (payrollbedrijf, recruitmentsoftware, assessmentbureaus).\n\n<strong>Datalekken</strong>: binnen 72 uur melden bij Autoriteit Persoonsgegevens. Als HRBP ken je het meldingsproces en train je medewerkers op herkenning van datalekken.`,
+    points: ['AVG: 6 grondslagen voor verwerking — toestemming is riskant in arbeidsrelatie', 'Bijzondere categorieën (gezondheid, vakbond) = maximale bescherming', 'Bewerkersovereenkomsten verplicht met alle externe HR-softwareleveranciers', 'Datalek: 72 uur meldplicht bij AP — HRBP moet dit proces kennen'],
+    caseTitle: '📌 Case: AVG-incident bij Acknowledge', caseBody: 'Een HR-medewerker mailt per ongeluk een lijst met salarisgegevens van 80 medewerkers naar alle medewerkers in plaats van alleen het MT. Wat moet HRBP doen binnen 72 uur? (1) Incident documenteren (wie, wat, wanneer, welke data, hoeveel betrokkenen). (2) Beoordelen: is er hoog risico voor betrokkenen? Salarisdata = gevoelig maar geen bijzondere categorie. Risico: middel. (3) Melden bij AP (grensgeval — salarisdata van 80 personen is meldplichtig). (4) Betrokkenen informeren. (5) Technische maatregel: onmiddellijk "recall" van e-mail proberen. (6) Preventie: toegangsrechten verscherpen + training.',
+    templateTitle: '🛠 AVG Incident Response Plan', templateItems: ['Detectie: wie meldt het incident intern? (meldlijn/DPO)', 'Classificatie: welke data, hoeveel betrokkenen, wat is het risico?', 'Besluit: meldplichtig bij AP? (indien middel of hoog risico)', 'Melden bij AP binnen 72 uur (via meldportaal AP)', 'Betrokkenen informeren als er hoog risico is voor hun rechten', 'Maatregelen: technisch + organisatorisch om herhaling te voorkomen'],
+    quiz: { q: 'Binnen hoeveel uur moet een datalek gemeld worden bij de Autoriteit Persoonsgegevens?', opts: ['24 uur', '48 uur', '72 uur', '7 dagen'], correct: 2, explanation: 'Correct! De AVG schrijft voor dat organisaties een datalek waarbij sprake is van risico voor betrokkenen binnen 72 uur na ontdekking melden bij de toezichthoudende autoriteit (in Nederland: de Autoriteit Persoonsgegevens).' }
+  },
+  {
+    id: 330, cat: 'Leiderschap', title: 'De Toekomst van Werk: AI, Automatisering & de HRBP van Morgen',
+    body: `De wereld van werk verandert in een tempo dat nooit eerder vertoond is. <strong>Generatieve AI</strong> (ChatGPT, Claude, Copilot) automatiseert kenniswerk, niet alleen routinewerk. <strong>Automatiseringsparadox</strong>: technologie neemt bepaald werk over en creëert tegelijkertijd nieuwe rollen — maar de transitie is pijnlijk en niet iedereen kan mee.\n\n<strong>Skills-based organisation</strong>: de opkomende trend waarbij organisaties niet meer denken in functies maar in skills. In plaats van "we zoeken een cloud-engineer" denk je "we zoeken iemand met Kubernetes, Terraform en klantgesprekken-vaardigheid." Dit verandert werving, ontwikkeling, mobiliteit en beloning fundamenteel.\n\n<strong>The HRBP of tomorrow</strong>: combineert HR-expertise met data literacy, financieel inzicht en business acumen. Spreekt Python (of begrijpt wat data-analisten doen), leest een P&L, bouwt een businesscase, begrijpt de technologie die het bedrijf levert, en fungeert als co-pilot van de CEO bij organisatievraagstukken.\n\n<strong>Ethische dimensie</strong>: wie draagt verantwoordelijkheid als AI een sollicitant afwijst? Als een algoritme de salarishoogte bepaalt? Als AI presteert goed maar discrimineert? Als HRBP ben je de ethische waakhond van data-gedreven HR.`,
+    points: ['Generatieve AI automatiseert kenniswerk — inclusief parts van de HRBP-rol zelf', 'Skills-based organisation: denk in competenties, niet in functies', 'De toekomst-HRBP: data literate, business savvy, ethisch scherp', 'AI-ethiek in HR: wie is verantwoordelijk als een algoritme discrimineert?'],
+    caseTitle: '📌 Case: AI in het wervingsproces bij Acknowledge', caseBody: 'Acknowledge implementeert een AI-tool die CV\'s screent en een fit-score geeft (0-100). Na 6 maanden constateert HRBP: vrouwelijke kandidaten scoren gemiddeld 12 punten lager bij technische rollen. Oorzaak: het model is getraind op historische data waar technische rollen vooral door mannen werden ingevuld. Als HRBP: (1) Gebruik van AI-tool direct opschorten. (2) Bias-audit laten uitvoeren door onafhankelijke partij. (3) Leverancier aanspreken op AVG-conformiteit (geautomatiseerde besluitvorming). (4) Handmatige screening tijdelijk herinvoeren. (5) Nieuw proces ontwerpen met menselijke check op AI-output. Dit is de ethische verantwoordelijkheid van de moderne HRBP.',
+    templateTitle: '🛠 AI in HR: Ethische Checklist', templateItems: ['Transparantie: begrijpen kandidaten dat AI wordt gebruikt?', 'Bias-test: is het model getraind op representatieve data?', 'Menselijke check: heeft een mens de eindverantwoordelijkheid voor elk besluit?', 'AVG-conformiteit: voldoet geautomatiseerde besluitvorming aan art. 22 AVG?', 'Audittrail: zijn AI-beslissingen herleidbaar en uitlegbaar?', 'Periodieke bias-audit: minimaal jaarlijks het model hertesten op discriminatie'],
+    quiz: { q: 'Wat is een "skills-based organisation" en wat is de HR-implicatie?', opts: ['Een organisatie die alleen medewerkers met universitaire diploma\'s aanneemt', 'Een organisatie die denkt in benodigde competenties in plaats van vaste functies — wat werving, mobiliteit en beloning fundamenteel verandert', 'Een organisatie die medewerkers beloont op basis van behaalde certificaten', 'Een organisatie zonder traditionele managementlagen'], correct: 1, explanation: 'Correct! In een skills-based organisatie draait alles om wat iemand KAN, niet om welke titel hij heeft. Dit maakt interne mobiliteit gemakkelijker, werving breder en carrièrepaden flexibeler — maar vraagt ook een compleet ander HR-instrumentarium.' }
   }
 ];
 
@@ -5397,6 +5775,234 @@ document.addEventListener('DOMContentLoaded', () => {
   const lesson = getNextLesson();
   renderLesson(lesson);
 })();
+
+// ── PROFILE PORTFOLIO ──────────────────────────────────────────────────────────
+
+const MODULE_META = [
+  {
+    key: 'it',
+    icon: '💻',
+    title: 'IT Business Academy',
+    sub: 'Netwerken, Cloud, Security & meer',
+    color: '#6c63ff',
+    glow: 'rgba(108,99,255,0.15)',
+    getState: () => state,
+    getCurriculum: () => CURRICULUM,
+    skills: ['Netwerken', 'Cloud Computing', 'Cybersecurity', 'Linux', 'Agile/Scrum']
+  },
+  {
+    key: 'hr',
+    icon: '🎯',
+    title: 'HR Business Partner',
+    sub: 'Arbeidsrecht, Recruitment, L&D',
+    color: '#ff6584',
+    glow: 'rgba(255,101,132,0.15)',
+    getState: () => hrState,
+    getCurriculum: () => HR_CURRICULUM,
+    skills: ['Arbeidsrecht', 'Recruitment', 'Learning & Development', 'Organisatiegedrag', 'HR Analytics']
+  },
+  {
+    key: 'finance',
+    icon: '💰',
+    title: 'Finance voor HRBP',
+    sub: 'P&L, Budgettering, Business Cases',
+    color: '#43e97b',
+    glow: 'rgba(67,233,123,0.15)',
+    getState: () => finState,
+    getCurriculum: () => FIN_CURRICULUM,
+    skills: ['Financiële Rapportages', 'Budgetteren', 'Business Cases', 'ROI-berekeningen', 'CFO-communicatie']
+  },
+  {
+    key: 'bk',
+    icon: '🏢',
+    title: 'Bedrijfskunde Academy',
+    sub: 'Strategie, Processen, Leiderschap',
+    color: '#f7971e',
+    glow: 'rgba(247,151,30,0.15)',
+    getState: () => bkState,
+    getCurriculum: () => BK_CURRICULUM,
+    skills: ['Bedrijfsstrategie', 'Verandermanagement', 'Lean & Six Sigma', 'Corporate Governance', 'M&A Due Diligence']
+  },
+  {
+    key: 'det',
+    icon: '🤝',
+    title: 'Detacheringswereld',
+    sub: 'MSP, SLA, Klantrelaties',
+    color: '#a78bfa',
+    glow: 'rgba(167,139,250,0.15)',
+    getState: () => detState,
+    getCurriculum: () => DET_CURRICULUM,
+    skills: ['Detacheringsmodellen', 'SLA-management', 'MSP/VMS', 'Klantrelaties', 'Contractmanagement']
+  },
+  {
+    key: 'hbo',
+    icon: '🎓',
+    title: 'HBO Informatica Business',
+    sub: 'IT-management, Architectuur, Innovatie',
+    color: '#38bdf8',
+    glow: 'rgba(56,189,248,0.15)',
+    getState: () => hboState,
+    getCurriculum: () => HBO_CURRICULUM,
+    skills: ['IT-architectuur', 'Digitale Transformatie', 'Data Governance', 'IT-strategie', 'Projectmanagement']
+  }
+];
+
+function openProfile() {
+  renderProfile();
+  document.getElementById('profileOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProfile() {
+  document.getElementById('profileOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('profileOverlay')) closeProfile();
+}
+
+function renderProfile() {
+  // Collect totals
+  let totalDone = 0, totalLessons = 0, totalPoints = 0, maxStreak = 0;
+
+  MODULE_META.forEach(m => {
+    const s = m.getState();
+    const c = m.getCurriculum();
+    totalDone += s.completed.length;
+    totalLessons += c.length;
+    maxStreak = Math.max(maxStreak, s.streak || 0);
+    // points: each completed lesson earns lesson.points count * 10
+    s.completed.forEach(id => {
+      const lesson = c.find(l => l.id === id);
+      if (lesson) totalPoints += (lesson.points ? lesson.points.length : 4) * 10;
+    });
+  });
+
+  const totalPct = totalLessons > 0 ? Math.round((totalDone / totalLessons) * 100) : 0;
+
+  // Stats
+  document.getElementById('profileStats').innerHTML = `
+    <div class="profile-stat">
+      <div class="profile-stat-val" style="background:linear-gradient(135deg,#6c63ff,#ff6584);-webkit-background-clip:text;-webkit-text-fill-color:transparent">${totalDone}</div>
+      <div class="profile-stat-lbl">Lessen voltooid</div>
+    </div>
+    <div class="profile-stat">
+      <div class="profile-stat-val" style="color:#43e97b">${totalPct}%</div>
+      <div class="profile-stat-lbl">Totale voortgang</div>
+    </div>
+    <div class="profile-stat">
+      <div class="profile-stat-val" style="color:#ffbe43">${totalPoints}</div>
+      <div class="profile-stat-lbl">Punten behaald</div>
+    </div>
+    <div class="profile-stat">
+      <div class="profile-stat-val" style="color:#ff6584">${maxStreak} 🔥</div>
+      <div class="profile-stat-lbl">Hoogste streak</div>
+    </div>
+  `;
+
+  // Module cards
+  const grid = MODULE_META.map(m => {
+    const s = m.getState();
+    const c = m.getCurriculum();
+    const done = s.completed.length;
+    const total = c.length;
+    const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+    const isComplete = pct === 100;
+    const hasStarted = done > 0;
+    const cls = isComplete ? 'completed' : hasStarted ? 'in-progress' : 'locked';
+    const statusLabel = isComplete ? '✓ Afgerond' : hasStarted ? 'Bezig' : 'Nog niet gestart';
+    const statusStyle = isComplete
+      ? 'background:rgba(67,233,123,0.15);color:#43e97b'
+      : hasStarted
+        ? 'background:rgba(108,99,255,0.15);color:#6c63ff'
+        : 'background:rgba(255,255,255,0.05);color:#7070a0';
+
+    return `
+      <div class="portfolio-card ${cls}">
+        <div class="portfolio-card-glow" style="background:radial-gradient(circle, ${m.glow} 0%, transparent 70%)"></div>
+        <div class="portfolio-card-icon">${m.icon}</div>
+        <div class="portfolio-card-title">${m.title}</div>
+        <div class="portfolio-card-sub">${m.sub}</div>
+        <div class="portfolio-progress-bar">
+          <div class="portfolio-progress-fill" style="width:${pct}%;background:linear-gradient(90deg,${m.color},${m.color}aa)"></div>
+        </div>
+        <div class="portfolio-progress-label">
+          <span class="portfolio-pct" style="color:${m.color}">${pct}%</span>
+          <span class="portfolio-status" style="${statusStyle}">${statusLabel}</span>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px">${done} / ${total} lessen</div>
+      </div>`;
+  }).join('');
+  document.getElementById('portfolioGrid').innerHTML = grid;
+
+  // Skills — show skills from modules that have been started
+  const earnedSkills = [];
+  MODULE_META.forEach(m => {
+    const s = m.getState();
+    const c = m.getCurriculum();
+    const done = s.completed.length;
+    const total = c.length;
+    const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+    if (done > 0) {
+      const level = pct >= 100 ? 'Expert' : pct >= 60 ? 'Gevorderd' : pct >= 30 ? 'Basis' : 'Beginner';
+      m.skills.forEach((skill, i) => {
+        if (i < Math.ceil(m.skills.length * (pct / 100)) || done >= 1) {
+          earnedSkills.push({ icon: m.icon, name: skill, level, color: m.color });
+        }
+      });
+    }
+  });
+
+  if (earnedSkills.length === 0) {
+    document.getElementById('skillsRow').innerHTML = '<div style="color:var(--muted);font-size:13px">Voltooi je eerste les om vaardigheden te ontgrendelen.</div>';
+  } else {
+    document.getElementById('skillsRow').innerHTML = earnedSkills.map(sk =>
+      `<div class="skill-badge" style="border-color:${sk.color}22">
+        <span class="skill-badge-icon">${sk.icon}</span>
+        ${sk.name}
+        <span class="skill-badge-lvl">${sk.level}</span>
+      </div>`
+    ).join('');
+  }
+
+  // Certificates
+  const certs = MODULE_META.map(m => {
+    const s = m.getState();
+    const c = m.getCurriculum();
+    const done = s.completed.length;
+    const total = c.length;
+    const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+    const isComplete = pct === 100;
+    const hasStarted = done > 0;
+
+    let cls = 'locked-cert', badgeCls = 'gray', badgeTxt = 'Vergrendeld';
+    if (isComplete) { cls = 'earned'; badgeCls = 'gold'; badgeTxt = 'Behaald ✓'; }
+    else if (hasStarted) { cls = 'in-prog'; badgeCls = 'blue'; badgeTxt = `${pct}% voltooid`; }
+
+    const certIcon = isComplete ? '🏆' : hasStarted ? '📘' : '🔒';
+    const sub = isComplete
+      ? `Certificaat behaald · ${done} lessen afgerond`
+      : hasStarted
+        ? `In uitvoering · ${done} van ${total} lessen`
+        : `${total} lessen · Nog niet gestart`;
+
+    return `
+      <div class="cert-item ${cls}">
+        <div class="cert-icon">${certIcon}</div>
+        <div class="cert-info">
+          <div class="cert-title">${m.title}</div>
+          <div class="cert-sub">${sub}</div>
+        </div>
+        <span class="cert-badge ${badgeCls}">${badgeTxt}</span>
+      </div>`;
+  }).join('');
+  document.getElementById('certRow').innerHTML = certs;
+}
+
+// Keyboard: close on Escape
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeProfile(); });
+
 </script>
 </body>
 </html>
