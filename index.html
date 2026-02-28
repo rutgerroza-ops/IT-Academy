@@ -51,57 +51,143 @@
     z-index: 1;
   }
 
-  /* Header */
+  /* ── PREMIUM HEADER ── */
   .header {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
-    margin-bottom: 48px;
+    margin-bottom: 40px;
     gap: 16px;
+    background: linear-gradient(135deg, rgba(108,99,255,0.07) 0%, rgba(255,101,132,0.04) 50%, rgba(15,17,35,0) 100%);
+    border: 1.5px solid rgba(108,99,255,0.18);
+    border-radius: 24px;
+    padding: 20px 28px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+  }
+
+  /* Subtle glow orb in top-left */
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; left: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(108,99,255,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Subtle glow orb in bottom-right */
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; right: 80px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(255,101,132,0.12) 0%, transparent 70%);
+    pointer-events: none;
   }
 
   .brand {
     font-family: 'Syne', sans-serif;
+    position: relative;
+    z-index: 1;
+  }
+
+  .brand-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+  }
+
+  .brand-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px rgba(108,99,255,0.8);
+    animation: pulse-dot 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.5; transform: scale(0.7); }
   }
 
   .brand-title {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.15em;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 6px;
   }
 
   .brand-name {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 800;
-    line-height: 1;
-    background: linear-gradient(135deg, #e8e8f0, #6c63ff);
+    line-height: 1.1;
+    background: linear-gradient(120deg, #ffffff 0%, #c8c4ff 50%, #6c63ff 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
   }
 
-  .streak-badge {
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    border-radius: 12px;
-    padding: 12px 20px;
-    text-align: center;
-    min-width: 80px;
+  .brand-sub {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    margin-top: 4px;
+    font-weight: 400;
   }
+
+  /* Right side of header */
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+
+  /* Streak badge — pill style */
+  .streak-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,190,67,0.1);
+    border: 1.5px solid rgba(255,190,67,0.3);
+    border-radius: 50px;
+    padding: 8px 16px;
+    cursor: default;
+    transition: all 0.2s;
+  }
+
+  .streak-badge:hover {
+    background: rgba(255,190,67,0.16);
+    border-color: rgba(255,190,67,0.5);
+  }
+
+  .streak-icon {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .streak-info { text-align: left; }
 
   .streak-num {
     font-family: 'Syne', sans-serif;
-    font-size: 28px;
+    font-size: 18px;
     font-weight: 800;
     line-height: 1;
+    color: #ffbe43;
   }
 
   .streak-label {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 500;
-    opacity: 0.85;
-    margin-top: 2px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    margin-top: 1px;
   }
 
   /* Progress bar */
@@ -1513,55 +1599,169 @@
   }
 
   /* Board switcher */
-  .board-switcher {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 28px;
+  /* ── SIDEBAR NAVIGATION ── */
+  .app-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 24px;
+    align-items: start;
   }
 
-  .board-btn {
-    flex: 1;
-    font-family: 'Syne', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    padding: 14px 16px;
-    border-radius: 14px;
-    border: 1.5px solid var(--border);
-    cursor: pointer;
+  @media (max-width: 700px) {
+    .app-layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .mobile-module-bar { display: flex !important; }
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 24px;
     background: var(--surface);
-    color: var(--muted);
-    transition: all 0.25s;
-    text-align: left;
-    letter-spacing: 0.01em;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
 
-  .board-btn:hover { border-color: var(--accent); color: var(--text); }
-
-  .board-btn.active-it {
-    background: linear-gradient(135deg, rgba(108,99,255,0.15), rgba(108,99,255,0.05));
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  .board-btn.active-hr {
-    background: linear-gradient(135deg, rgba(255,101,132,0.15), rgba(255,101,132,0.05));
-    border-color: var(--accent2);
-    color: var(--accent2);
-  }
-
-  .board-btn-label {
+  .sidebar-label {
     font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
+    font-weight: 700;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    opacity: 0.7;
-    margin-bottom: 2px;
+    color: var(--muted);
+    padding: 8px 10px 4px;
   }
 
-  .board-btn-name {
-    font-size: 14px;
-    font-weight: 800;
+  .sidebar-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-radius: 12px;
+    padding: 11px 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
   }
+
+  .sidebar-btn:hover { background: var(--surface2); }
+
+  .sidebar-btn-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    width: 28px;
+    text-align: center;
+  }
+
+  .sidebar-btn-info { flex: 1; min-width: 0; }
+
+  .sidebar-btn-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.2s;
+  }
+
+  .sidebar-btn:hover .sidebar-btn-name { color: var(--text); }
+
+  .sidebar-btn-bar {
+    height: 2px;
+    background: var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+
+  .sidebar-btn-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.6s ease;
+  }
+
+  .sidebar-btn.active-it   { background: rgba(108,99,255,0.1); }
+  .sidebar-btn.active-hr   { background: rgba(255,101,132,0.1); }
+  .sidebar-btn.active-finance { background: rgba(67,233,123,0.08); }
+  .sidebar-btn.active-bk   { background: rgba(251,191,36,0.08); }
+  .sidebar-btn.active-det  { background: rgba(251,113,36,0.08); }
+  .sidebar-btn.active-hbo  { background: rgba(99,102,241,0.1); }
+
+  .sidebar-btn.active-it   .sidebar-btn-name { color: #6c63ff; }
+  .sidebar-btn.active-hr   .sidebar-btn-name { color: #ff6584; }
+  .sidebar-btn.active-finance .sidebar-btn-name { color: #43e97b; }
+  .sidebar-btn.active-bk   .sidebar-btn-name { color: #fbbf24; }
+  .sidebar-btn.active-det  .sidebar-btn-name { color: #fb7124; }
+  .sidebar-btn.active-hbo  .sidebar-btn-name { color: #6366f1; }
+
+  .sidebar-btn.active-it::before,
+  .sidebar-btn.active-hr::before,
+  .sidebar-btn.active-finance::before,
+  .sidebar-btn.active-bk::before,
+  .sidebar-btn.active-det::before,
+  .sidebar-btn.active-hbo::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 20%; bottom: 20%;
+    width: 3px;
+    border-radius: 999px;
+  }
+  .sidebar-btn.active-it::before     { background: #6c63ff; }
+  .sidebar-btn.active-hr::before     { background: #ff6584; }
+  .sidebar-btn.active-finance::before{ background: #43e97b; }
+  .sidebar-btn.active-bk::before     { background: #fbbf24; }
+  .sidebar-btn.active-det::before    { background: #fb7124; }
+  .sidebar-btn.active-hbo::before    { background: #6366f1; }
+
+  .sidebar-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 6px 0;
+    border-radius: 999px;
+  }
+
+  .sidebar-home-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-radius: 12px;
+    padding: 11px 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .sidebar-home-btn:hover { background: var(--surface2); color: var(--text); }
+
+  /* Mobile bar (fallback) */
+  .mobile-module-bar {
+    display: none;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    margin-bottom: 20px;
+    scrollbar-width: none;
+  }
+  .mobile-module-bar::-webkit-scrollbar { display: none; }
+
+  /* Keep old board-btn class for backward compat but hide the old switcher */
+  .board-switcher { display: none; }
+  .board-btn { display: none; }
+  .board-btn-label { display: none; }
+  .board-btn-name { display: none; }
 
   /* HR accent override when HR board active */
   .hr-mode .lesson-card::before { background: linear-gradient(90deg, var(--accent2), #ff8c69); }
@@ -1847,20 +2047,403 @@
     font-family:'DM Sans',sans-serif;
   }
   .ai-quick-btn:hover { background:rgba(108,99,255,0.2); color:var(--text); border-color:var(--accent); }
+
+  /* ── LANDING PAGE ────────────────────────────────────────────────────────── */
+  #landingPage {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 0 40px;
+  }
+
+  .landing-logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 64px;
+  }
+
+  .landing-logo-mark {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    box-shadow: 0 4px 20px rgba(108,99,255,0.35);
+  }
+
+  .landing-logo-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .landing-logo-text span {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .landing-hero {
+    margin-bottom: 56px;
+  }
+
+  .landing-greeting {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .landing-greeting::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 999px;
+  }
+
+  .landing-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 6vw, 60px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  .landing-title .accent-gradient {
+    background: linear-gradient(135deg, #6c63ff 0%, #ff6584 60%, #ffbe43 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .landing-sub {
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 520px;
+    margin-bottom: 36px;
+  }
+
+  .landing-cta-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-landing-primary {
+    background: linear-gradient(135deg, var(--accent), #8b7cf8);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 16px 32px;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 24px rgba(108,99,255,0.35);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .btn-landing-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(108,99,255,0.5);
+  }
+
+  .btn-landing-secondary {
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 15px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-landing-secondary:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
+  /* Module overview grid on landing */
+  .landing-modules {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 48px;
+  }
+
+  @media (max-width: 640px) {
+    .landing-modules { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .landing-module-card {
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .landing-module-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+  }
+
+  .landing-module-card .card-glow {
+    position: absolute;
+    top: 0; right: 0;
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    transform: translate(40%, -40%);
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  .lmc-icon { font-size: 24px; margin-bottom: 10px; }
+
+  .lmc-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .lmc-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+
+  .lmc-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+  }
+
+  .lmc-pct {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* Landing stats row */
+  .landing-stats {
+    display: flex;
+    gap: 0;
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    margin-bottom: 48px;
+  }
+
+  .landing-stat-item {
+    flex: 1;
+    padding: 22px 24px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+
+  .landing-stat-item:last-child { border-right: none; }
+  .landing-stat-item:hover { background: rgba(108,99,255,0.05); }
+
+  .lsi-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .lsi-lbl {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* Continue learning card */
+  .landing-continue {
+    background: linear-gradient(135deg, rgba(108,99,255,0.12), rgba(255,101,132,0.06));
+    border: 1.5px solid rgba(108,99,255,0.25);
+    border-radius: 18px;
+    padding: 24px 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-bottom: 48px;
+  }
+
+  .landing-continue:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(108,99,255,0.2);
+    border-color: rgba(108,99,255,0.45);
+  }
+
+  .lc-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(108,99,255,0.3);
+  }
+
+  .lc-info { flex: 1; }
+
+  .lc-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .lc-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .lc-sub { font-size: 13px; color: var(--muted); }
+
+  .lc-arrow {
+    font-size: 20px;
+    color: var(--accent);
+    transition: transform 0.2s;
+  }
+
+  .landing-continue:hover .lc-arrow { transform: translateX(4px); }
+
 </style>
 </head>
 <body>
 
+<!-- ── LANDING PAGE ───────────────────────────────────────────────────────── -->
+<div id="landingPage" style="display:none">
+  <div class="container">
+    <div class="landing-logo">
+      <div class="landing-logo-mark">🎓</div>
+      <div class="landing-logo-text">
+        Acknowledge Learning Platform
+        <span>HR Business Academy</span>
+      </div>
+    </div>
+
+    <div class="landing-hero">
+      <div class="landing-greeting">Welkom terug, Rutger</div>
+      <h1 class="landing-title">
+        Jouw pad naar<br>
+        <span class="accent-gradient">strategisch HRBP</span>
+      </h1>
+      <p class="landing-sub">
+        Zes modules. Honderden lessen. Alles gericht op jouw rol bij Acknowledge ICT Group — van IT-kennis tot finance, van bedrijfskunde tot arbeidsrecht.
+      </p>
+      <div class="landing-cta-row">
+        <button class="btn-landing-primary" id="landingContinueBtn" onclick="goToLastModule()">
+          ▶ Ga verder
+        </button>
+        <button class="btn-landing-secondary" onclick="hideLanding()">
+          📚 Alle modules bekijken
+        </button>
+      </div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="landing-stats" id="landingStats">
+      <div class="landing-stat-item">
+        <div class="lsi-val" id="lsiDone" style="color:var(--accent)">0</div>
+        <div class="lsi-lbl">Lessen voltooid</div>
+      </div>
+      <div class="landing-stat-item">
+        <div class="lsi-val" id="lsiPct" style="color:var(--accent3)">0%</div>
+        <div class="lsi-lbl">Totale voortgang</div>
+      </div>
+      <div class="landing-stat-item">
+        <div class="lsi-val" id="lsiStreak" style="color:var(--accent2)">0 🔥</div>
+        <div class="lsi-lbl">Dag streak</div>
+      </div>
+      <div class="landing-stat-item">
+        <div class="lsi-val" id="lsiMods" style="color:#ffbe43">0 / 6</div>
+        <div class="lsi-lbl">Modules actief</div>
+      </div>
+    </div>
+
+    <!-- Continue card (last active module) -->
+    <div class="landing-continue" id="landingContinueCard" onclick="goToLastModule()">
+      <div class="lc-icon" id="lcIcon">▶</div>
+      <div class="lc-info">
+        <div class="lc-label">Verder leren</div>
+        <div class="lc-title" id="lcTitle">Laadt...</div>
+        <div class="lc-sub" id="lcSub">Klik om verder te gaan</div>
+      </div>
+      <div class="lc-arrow">→</div>
+    </div>
+
+    <!-- Module overview -->
+    <div class="profile-section-title" style="margin-bottom:16px">📋 Alle modules</div>
+    <div class="landing-modules" id="landingModules">
+      <!-- filled by JS -->
+    </div>
+  </div>
+</div>
+
 <div class="container">
   <div class="header">
     <div class="brand">
-      <div class="brand-title" id="boardLabel">IT Business Academy</div>
-      <div class="brand-name" id="boardName">Rutger's<br>IT Opleiding</div>
+      <div class="brand-eyebrow">
+        <div class="brand-dot"></div>
+        <div class="brand-title" id="boardLabel">IT Business Academy</div>
+      </div>
+      <div class="brand-name" id="boardName">Acknowledge<br>Learning Platform</div>
+      <div class="brand-sub">Jouw persoonlijk leerpad &middot; HRBP bij Acknowledge ICT Group</div>
     </div>
-    <div style="display:flex;align-items:center;gap:12px">
+    <div class="header-right">
       <div class="streak-badge">
-        <div class="streak-num" id="streakNum">0</div>
-        <div class="streak-label">dag streak 🔥</div>
+        <div class="streak-icon">🔥</div>
+        <div class="streak-info">
+          <div class="streak-num" id="streakNum">0</div>
+          <div class="streak-label">dag streak</div>
+        </div>
       </div>
       <button class="profile-btn" onclick="openProfile()">
         <div class="profile-avatar">R</div>
@@ -1907,33 +2490,60 @@
     </div>
   </div>
 
-  <!-- Board Switcher -->
-  <div class="board-switcher" style="flex-wrap:wrap">
-    <button class="board-btn active-it" id="btnIT" onclick="switchBoard('it')">
-      <div class="board-btn-label">Module 1</div>
-      <div class="board-btn-name">💻 IT Business Academy</div>
-    </button>
-    <button class="board-btn" id="btnHR" onclick="switchBoard('hr')">
-      <div class="board-btn-label">Module 2</div>
-      <div class="board-btn-name">🎯 HR Business Partner</div>
-    </button>
-    <button class="board-btn" id="btnFinance" onclick="switchBoard('finance')">
-      <div class="board-btn-label">Module 3</div>
-      <div class="board-btn-name">💰 Finance voor HRBP</div>
-    </button>
-    <button class="board-btn" id="btnBK" onclick="switchBoard('bk')">
-      <div class="board-btn-label">Module 4</div>
-      <div class="board-btn-name">🏢 Bedrijfskunde</div>
-    </button>
-    <button class="board-btn" id="btnDet" onclick="switchBoard('det')">
-      <div class="board-btn-label">Module 5</div>
-      <div class="board-btn-name">🤝 Detacheringswereld</div>
-    </button>
-    <button class="board-btn" id="btnHBO" onclick="switchBoard('hbo')">
-      <div class="board-btn-label">Module 6</div>
-      <div class="board-btn-name">🎓 HBO Informatica Business</div>
-    </button>
-  </div>
+  <!-- App Layout: Sidebar + Content -->
+  <div class="app-layout">
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="appSidebar">
+      <div class="sidebar-label">Modules</div>
+      <button class="sidebar-btn active-it" id="btnIT" onclick="switchBoard('it')">
+        <span class="sidebar-btn-icon">💻</span>
+        <div class="sidebar-btn-info">
+          <div class="sidebar-btn-name">IT Business Academy</div>
+          <div class="sidebar-btn-bar"><div class="sidebar-btn-bar-fill" id="sbarIT" style="width:0%;background:#6c63ff"></div></div>
+        </div>
+      </button>
+      <button class="sidebar-btn" id="btnHR" onclick="switchBoard('hr')">
+        <span class="sidebar-btn-icon">🎯</span>
+        <div class="sidebar-btn-info">
+          <div class="sidebar-btn-name">HR Business Partner</div>
+          <div class="sidebar-btn-bar"><div class="sidebar-btn-bar-fill" id="sbarHR" style="width:0%;background:#ff6584"></div></div>
+        </div>
+      </button>
+      <button class="sidebar-btn" id="btnFinance" onclick="switchBoard('finance')">
+        <span class="sidebar-btn-icon">💰</span>
+        <div class="sidebar-btn-info">
+          <div class="sidebar-btn-name">Finance voor HRBP</div>
+          <div class="sidebar-btn-bar"><div class="sidebar-btn-bar-fill" id="sbarFinance" style="width:0%;background:#43e97b"></div></div>
+        </div>
+      </button>
+      <button class="sidebar-btn" id="btnBK" onclick="switchBoard('bk')">
+        <span class="sidebar-btn-icon">🏢</span>
+        <div class="sidebar-btn-info">
+          <div class="sidebar-btn-name">Bedrijfskunde Academy</div>
+          <div class="sidebar-btn-bar"><div class="sidebar-btn-bar-fill" id="sbarBK" style="width:0%;background:#fbbf24"></div></div>
+        </div>
+      </button>
+      <button class="sidebar-btn" id="btnDet" onclick="switchBoard('det')">
+        <span class="sidebar-btn-icon">🤝</span>
+        <div class="sidebar-btn-info">
+          <div class="sidebar-btn-name">Detacheringswereld</div>
+          <div class="sidebar-btn-bar"><div class="sidebar-btn-bar-fill" id="sbarDet" style="width:0%;background:#fb7124"></div></div>
+        </div>
+      </button>
+      <button class="sidebar-btn" id="btnHBO" onclick="switchBoard('hbo')">
+        <span class="sidebar-btn-icon">🎓</span>
+        <div class="sidebar-btn-info">
+          <div class="sidebar-btn-name">HBO Informatica</div>
+          <div class="sidebar-btn-bar"><div class="sidebar-btn-bar-fill" id="sbarHBO" style="width:0%;background:#6366f1"></div></div>
+        </div>
+      </button>
+      <div class="sidebar-divider"></div>
+      <button class="sidebar-home-btn" onclick="showLanding()">🏠 Dashboard</button>
+    </nav>
+
+    <!-- Main content area -->
+    <div id="mainContent">
 
   <!-- IT BOARD -->
   <div id="boardIT">
@@ -1982,10 +2592,12 @@
     <div class="nav-tabs" id="hrNavTabs">
       <button class="nav-tab active" onclick="switchHRTab('learn', this)">📚 Leren</button>
       <button class="nav-tab" onclick="switchHRTab('dashboard', this)">📊 Voortgang</button>
+      <button class="nav-tab" onclick="switchHRTab('visueel', this)">🗺 Visueel</button>
       <button class="nav-tab" onclick="switchHRTab('curriculum', this)">🗂 Curriculum</button>
     </div>
     <div id="hrTabLearn"><div id="hrLessonContainer"></div></div>
     <div id="hrTabDashboard" style="display:none"><div id="hrDashboardContent"></div></div>
+    <div id="hrTabVisueel" style="display:none"><div id="hrVisueel"></div></div>
     <div id="hrTabCurriculum" style="display:none">
       <div class="category-pills" style="margin-bottom:20px">
         <div class="pill active" onclick="filterHRCategory('all', this)">Alles</div>
@@ -2013,10 +2625,12 @@
     <div class="nav-tabs" id="finNavTabs">
       <button class="nav-tab active" onclick="switchFinTab('learn', this)">📚 Leren</button>
       <button class="nav-tab" onclick="switchFinTab('dashboard', this)">📊 Voortgang</button>
+      <button class="nav-tab" onclick="switchFinTab('visueel', this)">🗺 Visueel</button>
       <button class="nav-tab" onclick="switchFinTab('curriculum', this)">🗂 Curriculum</button>
     </div>
     <div id="finTabLearn"><div id="finLessonContainer"></div></div>
     <div id="finTabDashboard" style="display:none"><div id="finDashboardContent"></div></div>
+    <div id="finTabVisueel" style="display:none"><div id="finVisueel"></div></div>
     <div id="finTabCurriculum" style="display:none">
       <div class="category-pills" style="margin-bottom:20px">
         <div class="pill active" onclick="filterFinCategory('all', this)">Alles</div>
@@ -2044,10 +2658,12 @@
     <div class="nav-tabs" id="bkNavTabs">
       <button class="nav-tab active" onclick="switchBKTab('learn', this)">📚 Leren</button>
       <button class="nav-tab" onclick="switchBKTab('dashboard', this)">📊 Voortgang</button>
+      <button class="nav-tab" onclick="switchBKTab('visueel', this)">🗺 Visueel</button>
       <button class="nav-tab" onclick="switchBKTab('curriculum', this)">🗂 Curriculum</button>
     </div>
     <div id="bkTabLearn"><div id="bkLessonContainer"></div></div>
     <div id="bkTabDashboard" style="display:none"><div id="bkDashboardContent"></div></div>
+    <div id="bkTabVisueel" style="display:none"><div id="bkVisueel"></div></div>
     <div id="bkTabCurriculum" style="display:none">
       <div class="category-pills" style="margin-bottom:20px">
         <div class="pill active" onclick="filterBKCategory('all', this)">Alles</div>
@@ -2075,10 +2691,12 @@
     <div class="nav-tabs" id="detNavTabs">
       <button class="nav-tab active" onclick="switchDetTab('learn', this)">📚 Leren</button>
       <button class="nav-tab" onclick="switchDetTab('dashboard', this)">📊 Voortgang</button>
+      <button class="nav-tab" onclick="switchDetTab('visueel', this)">🗺 Visueel</button>
       <button class="nav-tab" onclick="switchDetTab('curriculum', this)">🗂 Curriculum</button>
     </div>
     <div id="detTabLearn"><div id="detLessonContainer"></div></div>
     <div id="detTabDashboard" style="display:none"><div id="detDashboardContent"></div></div>
+    <div id="detTabVisueel" style="display:none"><div id="detVisueel"></div></div>
     <div id="detTabCurriculum" style="display:none">
       <div class="category-pills" style="margin-bottom:20px">
         <div class="pill active" onclick="filterDetCategory('all', this)">Alles</div>
@@ -2106,10 +2724,12 @@
     <div class="nav-tabs" id="hboNavTabs">
       <button class="nav-tab active" onclick="switchHBOTab('learn', this)">📚 Leren</button>
       <button class="nav-tab" onclick="switchHBOTab('dashboard', this)">📊 Voortgang</button>
+      <button class="nav-tab" onclick="switchHBOTab('visueel', this)">🗺 Visueel</button>
       <button class="nav-tab" onclick="switchHBOTab('curriculum', this)">🗂 Curriculum</button>
     </div>
     <div id="hboTabLearn"><div id="hboLessonContainer"></div></div>
     <div id="hboTabDashboard" style="display:none"><div id="hboDashboardContent"></div></div>
+    <div id="hboTabVisueel" style="display:none"><div id="hboVisueel"></div></div>
     <div id="hboTabCurriculum" style="display:none">
       <div class="category-pills" style="margin-bottom:20px">
         <div class="pill active" onclick="filterHBOCategory('all', this)">Alles</div>
@@ -2121,8 +2741,11 @@
       </div>
       <div class="curriculum-grid" id="hboCurriculumGrid"></div>
     </div>
-  </div>
-</div>
+  </div><!-- boardHBO -->
+
+    </div><!-- mainContent -->
+  </div><!-- app-layout -->
+</div><!-- container -->
 <div class="toast" id="toast"></div>
 
 <!-- AI TUTOR PANEL -->
@@ -3662,19 +4285,20 @@ function switchBoard(board) {
   document.getElementById('boardBK').style.display = board === 'bk' ? '' : 'none';
   document.getElementById('boardDet').style.display = board === 'det' ? '' : 'none';
   document.getElementById('boardHBO').style.display = board === 'hbo' ? '' : 'none';
-  document.getElementById('btnIT').className = 'board-btn ' + (board === 'it' ? 'active-it' : '');
-  document.getElementById('btnHR').className = 'board-btn ' + (board === 'hr' ? 'active-hr' : '');
-  document.getElementById('btnFinance').className = 'board-btn ' + (board === 'finance' ? 'active-finance' : '');
-  document.getElementById('btnBK').className = 'board-btn ' + (board === 'bk' ? 'active-bk' : '');
-  document.getElementById('btnDet').className = 'board-btn ' + (board === 'det' ? 'active-det' : '');
-  document.getElementById('btnHBO').className = 'board-btn ' + (board === 'hbo' ? 'active-hbo' : '');
+  // Sidebar active states
+  document.getElementById('btnIT').className = 'sidebar-btn ' + (board === 'it' ? 'active-it' : '');
+  document.getElementById('btnHR').className = 'sidebar-btn ' + (board === 'hr' ? 'active-hr' : '');
+  document.getElementById('btnFinance').className = 'sidebar-btn ' + (board === 'finance' ? 'active-finance' : '');
+  document.getElementById('btnBK').className = 'sidebar-btn ' + (board === 'bk' ? 'active-bk' : '');
+  document.getElementById('btnDet').className = 'sidebar-btn ' + (board === 'det' ? 'active-det' : '');
+  document.getElementById('btnHBO').className = 'sidebar-btn ' + (board === 'hbo' ? 'active-hbo' : '');
   const labels = {
-    it: ['IT Business Academy', "Rutger's<br>IT Opleiding"],
-    hr: ['HR Business Partner Academy', "Rutger's<br>HR BP Opleiding"],
-    finance: ['Finance voor HRBP', "Rutger's<br>Finance Opleiding"],
-    bk: ['Bedrijfskunde Academy', "Rutger's<br>Bedrijfskunde Opleiding"],
-    det: ['Detacheringswereld Academy', "Rutger's<br>Detachering Opleiding"],
-    hbo: ['HBO Informatica Business', "Rutger's<br>HBO Informatica"]
+    it: ['IT Business Academy', "Acknowledge<br>Learning Platform"],
+    hr: ['HR Business Partner Academy', "Acknowledge<br>Learning Platform"],
+    finance: ['Finance voor HRBP', "Acknowledge<br>Learning Platform"],
+    bk: ['Bedrijfskunde Academy', "Acknowledge<br>Learning Platform"],
+    det: ['Detacheringswereld Academy', "Acknowledge<br>Learning Platform"],
+    hbo: ['HBO Informatica Business', "Acknowledge<br>Learning Platform"]
   };
   document.getElementById('boardLabel').textContent = labels[board][0];
   document.getElementById('boardName').innerHTML = labels[board][1];
@@ -3690,9 +4314,11 @@ function switchHRTab(tab, el) {
   el.classList.add('active');
   document.getElementById('hrTabLearn').style.display = tab === 'learn' ? '' : 'none';
   document.getElementById('hrTabDashboard').style.display = tab === 'dashboard' ? '' : 'none';
+  document.getElementById('hrTabVisueel').style.display = tab === 'visueel' ? '' : 'none';
   document.getElementById('hrTabCurriculum').style.display = tab === 'curriculum' ? '' : 'none';
   if (tab === 'dashboard') renderHRDashboard();
   if (tab === 'curriculum') renderHRCurriculum();
+  if (tab === 'visueel') renderModuleVisueel('hr');
 }
 
 function filterHRCategory(cat, el) {
@@ -4140,7 +4766,9 @@ function switchFinTab(tab, el) {
   el.classList.add('active');
   document.getElementById('finTabLearn').style.display = tab === 'learn' ? '' : 'none';
   document.getElementById('finTabDashboard').style.display = tab === 'dashboard' ? '' : 'none';
+  document.getElementById('finTabVisueel').style.display = tab === 'visueel' ? '' : 'none';
   document.getElementById('finTabCurriculum').style.display = tab === 'curriculum' ? '' : 'none';
+  if (tab === 'visueel') renderModuleVisueel('finance');
   if (tab === 'dashboard') renderFinDashboard();
   if (tab === 'curriculum') renderFinCurriculum();
 }
@@ -4588,7 +5216,9 @@ function switchBKTab(tab, el) {
   el.classList.add('active');
   document.getElementById('bkTabLearn').style.display = tab === 'learn' ? '' : 'none';
   document.getElementById('bkTabDashboard').style.display = tab === 'dashboard' ? '' : 'none';
+  document.getElementById('bkTabVisueel').style.display = tab === 'visueel' ? '' : 'none';
   document.getElementById('bkTabCurriculum').style.display = tab === 'curriculum' ? '' : 'none';
+  if (tab === 'visueel') renderModuleVisueel('bk');
   if (tab === 'dashboard') renderBKDashboard();
   if (tab === 'curriculum') renderBKCurriculum();
 }
@@ -4972,7 +5602,9 @@ function switchDetTab(tab, el) {
   el.classList.add('active');
   document.getElementById('detTabLearn').style.display = tab === 'learn' ? '' : 'none';
   document.getElementById('detTabDashboard').style.display = tab === 'dashboard' ? '' : 'none';
+  document.getElementById('detTabVisueel').style.display = tab === 'visueel' ? '' : 'none';
   document.getElementById('detTabCurriculum').style.display = tab === 'curriculum' ? '' : 'none';
+  if (tab === 'visueel') renderModuleVisueel('det');
   if (tab === 'dashboard') renderDetDashboard();
   if (tab === 'curriculum') renderDetCurriculum();
 }
@@ -5356,7 +5988,9 @@ function switchHBOTab(tab, el) {
   el.classList.add('active');
   document.getElementById('hboTabLearn').style.display = tab === 'learn' ? '' : 'none';
   document.getElementById('hboTabDashboard').style.display = tab === 'dashboard' ? '' : 'none';
+  document.getElementById('hboTabVisueel').style.display = tab === 'visueel' ? '' : 'none';
   document.getElementById('hboTabCurriculum').style.display = tab === 'curriculum' ? '' : 'none';
+  if (tab === 'visueel') renderModuleVisueel('hbo');
   if (tab === 'dashboard') renderHBODashboard();
   if (tab === 'curriculum') renderHBOCurriculum();
 }
@@ -5774,7 +6408,101 @@ document.addEventListener('DOMContentLoaded', () => {
   updateProgress();
   const lesson = getNextLesson();
   renderLesson(lesson);
+  // Show landing page on first load
+  updateSidebarBars();
+  showLanding();
 })();
+
+
+// ── LANDING PAGE ───────────────────────────────────────────────────────────────
+
+const LANDING_MODULES = [
+  { key: 'it',      icon: '💻', title: 'IT Business Academy',       color: '#6c63ff', glow: 'rgba(108,99,255,0.2)',  getState: () => state,    getCurriculum: () => CURRICULUM },
+  { key: 'hr',      icon: '🎯', title: 'HR Business Partner',        color: '#ff6584', glow: 'rgba(255,101,132,0.2)', getState: () => hrState,  getCurriculum: () => HR_CURRICULUM },
+  { key: 'finance', icon: '💰', title: 'Finance voor HRBP',          color: '#43e97b', glow: 'rgba(67,233,123,0.2)', getState: () => finState, getCurriculum: () => FIN_CURRICULUM },
+  { key: 'bk',      icon: '🏢', title: 'Bedrijfskunde Academy',      color: '#f7971e', glow: 'rgba(247,151,30,0.2)', getState: () => bkState,  getCurriculum: () => BK_CURRICULUM },
+  { key: 'det',     icon: '🤝', title: 'Detacheringswereld Academy', color: '#a78bfa', glow: 'rgba(167,139,250,0.2)',getState: () => detState, getCurriculum: () => DET_CURRICULUM },
+  { key: 'hbo',     icon: '🎓', title: 'HBO Informatica Business',   color: '#38bdf8', glow: 'rgba(56,189,248,0.2)', getState: () => hboState, getCurriculum: () => HBO_CURRICULUM },
+];
+
+function showLanding() {
+  document.getElementById('landingPage').style.display = '';
+  document.querySelector('.container:not(#landingPage .container)').style.display = 'none';
+  renderLanding();
+}
+
+function hideLanding() {
+  document.getElementById('landingPage').style.display = 'none';
+  document.querySelector('.container:not(#landingPage .container)').style.display = '';
+}
+
+function goToLastModule() {
+  // Find module with most recent activity (most completed lessons)
+  let bestModule = LANDING_MODULES[0];
+  let bestCount = 0;
+  LANDING_MODULES.forEach(m => {
+    const done = m.getState().completed.length;
+    if (done > bestCount) { bestCount = done; bestModule = m; }
+  });
+  hideLanding();
+  switchBoard(bestModule.key);
+}
+
+function renderLanding() {
+  let totalDone = 0, totalLessons = 0, maxStreak = 0, activeMods = 0;
+  LANDING_MODULES.forEach(m => {
+    const s = m.getState(), c = m.getCurriculum();
+    totalDone += s.completed.length;
+    totalLessons += c.length;
+    maxStreak = Math.max(maxStreak, s.streak || 0);
+    if (s.completed.length > 0) activeMods++;
+  });
+  const totalPct = totalLessons > 0 ? Math.round((totalDone / totalLessons) * 100) : 0;
+
+  // Stats
+  document.getElementById('lsiDone').textContent = totalDone;
+  document.getElementById('lsiPct').textContent = totalPct + '%';
+  document.getElementById('lsiStreak').textContent = maxStreak + ' 🔥';
+  document.getElementById('lsiMods').textContent = activeMods + ' / 6';
+
+  // Continue card — find best module
+  let bestModule = LANDING_MODULES[0], bestCount = -1;
+  LANDING_MODULES.forEach(m => {
+    const done = m.getState().completed.length;
+    if (done > bestCount) { bestCount = done; bestModule = m; }
+  });
+  const bm = bestModule;
+  const bState = bm.getState(), bCurr = bm.getCurriculum();
+  const bmDone = bState.completed.length, bmTotal = bCurr.length;
+  const bmPct = bmTotal > 0 ? Math.round((bmDone / bmTotal) * 100) : 0;
+  document.getElementById('lcIcon').textContent = bm.icon;
+  document.getElementById('lcTitle').textContent = bm.title;
+  document.getElementById('lcSub').textContent = bmDone > 0
+    ? `${bmDone} van ${bmTotal} lessen voltooid · ${bmPct}% klaar`
+    : 'Nog niet gestart — begin hier';
+
+  // Module cards
+  const cards = LANDING_MODULES.map(m => {
+    const s = m.getState(), c = m.getCurriculum();
+    const done = s.completed.length, total = c.length;
+    const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+    const statusTxt = pct === 100 ? '✓ Afgerond' : done > 0 ? `${pct}%` : 'Starten';
+    const statusColor = pct === 100 ? '#43e97b' : done > 0 ? m.color : 'var(--muted)';
+    return `
+      <div class="landing-module-card" onclick="hideLanding();switchBoard('${m.key}')" style="border-color:${done > 0 ? m.color + '33' : 'var(--border)'}">
+        <div class="card-glow" style="background:radial-gradient(circle,${m.glow} 0%,transparent 70%)"></div>
+        <div class="lmc-icon">${m.icon}</div>
+        <div class="lmc-title">${m.title}</div>
+        <div class="lmc-bar"><div class="lmc-bar-fill" style="width:${pct}%;background:${m.color}"></div></div>
+        <div class="lmc-pct" style="color:${statusColor}">${statusTxt}</div>
+      </div>`;
+  }).join('');
+  document.getElementById('landingModules').innerHTML = cards;
+
+  // Update CTA button text
+  const anyStarted = LANDING_MODULES.some(m => m.getState().completed.length > 0);
+  document.getElementById('landingContinueBtn').innerHTML = anyStarted ? '▶ Ga verder' : '🚀 Begin nu';
+}
 
 // ── PROFILE PORTFOLIO ──────────────────────────────────────────────────────────
 
@@ -5998,6 +6726,104 @@ function renderProfile() {
       </div>`;
   }).join('');
   document.getElementById('certRow').innerHTML = certs;
+}
+
+
+// ── SIDEBAR PROGRESS BARS ──────────────────────────────────────────────────────
+function updateSidebarBars() {
+  const modules = [
+    { id: 'sbarIT',      getState: () => state,    getCurriculum: () => CURRICULUM },
+    { id: 'sbarHR',      getState: () => hrState,  getCurriculum: () => HR_CURRICULUM },
+    { id: 'sbarFinance', getState: () => finState, getCurriculum: () => FIN_CURRICULUM },
+    { id: 'sbarBK',      getState: () => bkState,  getCurriculum: () => BK_CURRICULUM },
+    { id: 'sbarDet',     getState: () => detState, getCurriculum: () => DET_CURRICULUM },
+    { id: 'sbarHBO',     getState: () => hboState, getCurriculum: () => HBO_CURRICULUM },
+  ];
+  modules.forEach(m => {
+    const el = document.getElementById(m.id);
+    if (!el) return;
+    const s = m.getState(), c = m.getCurriculum();
+    const pct = c.length > 0 ? Math.round((s.completed.length / c.length) * 100) : 0;
+    el.style.width = pct + '%';
+  });
+}
+
+// ── VISUEEL TAB RENDERER ───────────────────────────────────────────────────────
+function renderModuleVisueel(board) {
+  const containerMap = { hr: 'hrVisueel', finance: 'finVisueel', bk: 'bkVisueel', det: 'detVisueel', hbo: 'hboVisueel' };
+  const container = document.getElementById(containerMap[board]);
+  if (!container) return;
+
+  const stateMap = { hr: hrState, finance: finState, bk: bkState, det: detState, hbo: hboState };
+  const currMap  = { hr: HR_CURRICULUM, finance: FIN_CURRICULUM, bk: BK_CURRICULUM, det: DET_CURRICULUM, hbo: HBO_CURRICULUM };
+  const colorMap = { hr: '#ff6584', finance: '#43e97b', bk: '#fbbf24', det: '#fb7124', hbo: '#6366f1' };
+
+  const s = stateMap[board], c = currMap[board], color = colorMap[board];
+  const done = s.completed.length, total = c.length;
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+  // Group by category
+  const cats = [...new Set(c.map(l => l.cat))];
+  const catCards = cats.map(cat => {
+    const catLessons = c.filter(l => l.cat === cat);
+    const catDone = catLessons.filter(l => s.completed.includes(l.id)).length;
+    const catPct = Math.round((catDone / catLessons.length) * 100);
+    return `
+      <div style="background:var(--surface2);border:1.5px solid var(--border);border-radius:14px;padding:18px 20px;transition:all 0.2s" onmouseover="this.style.borderColor='${color}44'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:10px">${cat}</div>
+        <div style="height:6px;background:var(--border);border-radius:999px;overflow:hidden;margin-bottom:8px">
+          <div style="height:100%;width:${catPct}%;background:${color};border-radius:999px;transition:width 0.8s ease"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted)">
+          <span>${catDone} / ${catLessons.length} lessen</span>
+          <span style="color:${color};font-weight:700">${catPct}%</span>
+        </div>
+      </div>`;
+  }).join('');
+
+  // Recent completed
+  const recentIds = [...s.completed].reverse().slice(0, 5);
+  const recentHTML = recentIds.length > 0
+    ? recentIds.map(id => {
+        const l = c.find(l => l.id === id);
+        if (!l) return '';
+        return `<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <div style="width:28px;height:28px;border-radius:8px;background:rgba(67,233,123,0.15);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">✓</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${l.title}</div>
+            <div style="font-size:11px;color:var(--muted)">${l.cat}</div>
+          </div>
+        </div>`;
+      }).join('')
+    : '<div style="color:var(--muted);font-size:13px;padding:16px 0">Nog geen lessen voltooid in deze module.</div>';
+
+  container.innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:28px;padding:4px 0">
+
+      <!-- Overall progress -->
+      <div style="background:linear-gradient(135deg,var(--surface2),var(--surface));border:1.5px solid var(--border);border-radius:18px;padding:28px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800">Totale voortgang</div>
+          <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:${color}">${pct}%</div>
+        </div>
+        <div style="height:8px;background:var(--border);border-radius:999px;overflow:hidden;margin-bottom:12px">
+          <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,${color},${color}bb);border-radius:999px;transition:width 1s ease"></div>
+        </div>
+        <div style="font-size:12px;color:var(--muted)">${done} van ${total} lessen afgerond</div>
+      </div>
+
+      <!-- Category breakdown -->
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Per categorie</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px">${catCards}</div>
+      </div>
+
+      <!-- Recently completed -->
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Recentelijk voltooid</div>
+        <div style="background:var(--surface2);border:1.5px solid var(--border);border-radius:14px;padding:0 16px">${recentHTML}</div>
+      </div>
+    </div>`;
 }
 
 // Keyboard: close on Escape
